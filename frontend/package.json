@@ -14,6 +14,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-switch-button-react": "^1.2.0",
     "react": "^18.2.0",
+    "react-anime": "^4.1.1",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",

@@ -3,6 +3,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
+
 function WelcomeNavbar(props) {
   const [alignment, setAlignment] = React.useState("left");
 
@@ -45,14 +46,22 @@ function WelcomeNavbar(props) {
             onChange={handleAlignment}
             aria-label="text alignment"
           >
-            <ToggleButton value="left" aria-label="left aligned" sx={{border: "none"}}>
+            <ToggleButton
+              value="left"
+              aria-label="left aligned"
+              sx={{ border: "none" }}
+            >
               <Brightness5Icon
                 sx={{
                   color: props.theme === "light" ? "#F6C86C" : "#C6778F",
                 }}
               ></Brightness5Icon>
             </ToggleButton>
-            <ToggleButton value="right" aria-label="right aligned" sx={{border: "none"}}>
+            <ToggleButton
+              value="right"
+              aria-label="right aligned"
+              sx={{ border: "none" }}
+            >
               <DarkModeIcon
                 sx={{
                   color: props.theme === "light" ? "#4D79B8" : "#F4F6F0",

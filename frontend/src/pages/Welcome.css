@@ -1,6 +1,7 @@
 .body {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 .font-link-light {
   font-family: "Allura", cursive;
@@ -8,10 +9,10 @@
   color: #bcd5eb;
 }
 
-.font-link-dark{
+.font-link-dark {
   font-family: "Allura", cursive;
   font-size: 11rem;
-  color: #F2D1DB;
+  color: #f2d1db;
 }
 
 .subheadings-light {
@@ -23,13 +24,13 @@
   font-family: "Playfair Display", serif;
 }
 .subheadings-dark {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 53px;
-    color: #F2D1DB;
-    font-family: "Playfair Display", serif;
-  }
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 53px;
+  color: #f2d1db;
+  font-family: "Playfair Display", serif;
+}
 
 .mycontent-light {
   font-family: "DM Sans", sans-serif;
@@ -40,10 +41,43 @@
   color: #bcd5eb;
 }
 .mycontent-dark {
-    font-family: "DM Sans", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 31px;
-    color: #F2D1DB;
+  font-family: "DM Sans", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 31px;
+  color: #f2d1db;
+}
+
+.card:nth-child(1) {
+  opacity: 1;
+  animation: fade-in 2s;
+  animation-delay: 0.3s;
+}
+
+.card:nth-child(2) {
+  opacity: 1;
+  animation: fade-in 2s;
+  animation-delay: 0.7s;
+}
+
+.card:nth-child(3) {
+  opacity: 1;
+  animation: fade-in 2s;
+  animation-delay: 0.5s;
+}
+
+.card:nth-child(4) {
+  opacity: 1;
+  animation: fade-in 1.4s;
+  animation-delay: 0.8s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
