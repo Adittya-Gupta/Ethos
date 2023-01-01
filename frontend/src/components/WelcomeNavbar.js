@@ -3,6 +3,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import React from 'react';
+import { Link } from 'react-router-dom';
 function WelcomeNavbar(props){
   const [alignment, setAlignment] = React.useState('left');
 
@@ -49,8 +50,8 @@ function WelcomeNavbar(props){
       </ToggleButton>
     </ToggleButtonGroup>
       <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-      <a style={{color:props.theme==="light" ? "#4D79B8" : "#C6778F", borderColor: props.theme==="light" ? "#4D79B8" : "#C6778F"}} href="/" className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-lg px-4 py-2 text-base font-medium  shadow-sm">Log in</a>
-      <a style={{color:props.theme==="light" ? "#4D79B8" : "#C6778F", borderColor: props.theme==="light" ? "#4D79B8" : "#C6778F"}} href="/" className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-lg px-4 py-2 text-base font-medium  shadow-sm">Sign Up</a>
+      <Link style={{color:props.theme==="light" ? "#4D79B8" : "#C6778F", borderColor: props.theme==="light" ? "#4D79B8" : "#C6778F"}} to="/login" className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-lg px-4 py-2 text-base font-medium  shadow-sm" state={{"theme":props.theme}}>Log in</Link>
+      <Link style={{color:props.theme==="light" ? "#4D79B8" : "#C6778F", borderColor: props.theme==="light" ? "#4D79B8" : "#C6778F"}} to="/" className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-lg px-4 py-2 text-base font-medium  shadow-sm" state={{"theme":props.theme}}>Sign Up</Link>
       </div>
     </div>
   </div>
