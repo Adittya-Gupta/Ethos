@@ -36,14 +36,14 @@ function WelcomeNavbar(props){
       <ToggleButton value="left" aria-label="left aligned">
         <Brightness5Icon
         sx={{
-            color: props.theme==="light" ? "#F6C86C" : "#FFFFFF",
+            color: props.theme==="light" ? "#F6C86C" :"#C6778F" ,
         }}
         ></Brightness5Icon>
       </ToggleButton>
       <ToggleButton value="right" aria-label="right aligned">
         <DarkModeIcon
         sx={{
-            color: props.theme==="light" ? "#4D79B8" : "#C6778F",
+            color: props.theme==="light" ? "#4D79B8" : "#F4F6F0",
         }}
         ></DarkModeIcon>
       </ToggleButton>
