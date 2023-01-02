@@ -3,7 +3,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
-
+import { Link } from "react-router-dom";
 function WelcomeNavbar(props) {
   const [alignment, setAlignment] = React.useState("left");
 
@@ -70,26 +70,28 @@ function WelcomeNavbar(props) {
             </ToggleButton>
           </ToggleButtonGroup>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <a
+            <Link
               style={{
                 color: props.theme === "light" ? "#4D79B8" : "#C6778F",
                 borderColor: props.theme === "light" ? "#4D79B8" : "#C6778F",
               }}
-              href="/"
+              to="/login"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
+              state={{"theme":props.theme}}
             >
               Log in
-            </a>
-            <a
+            </Link>
+            <Link
               style={{
                 color: props.theme === "light" ? "#4D79B8" : "#C6778F",
                 borderColor: props.theme === "light" ? "#4D79B8" : "#C6778F",
               }}
-              href="/"
+              to="/"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
+              state={{"theme":props.theme}}
             >
               Sign Up
-            </a>
+            </Link>
           </div>
         </div>
       </div>
