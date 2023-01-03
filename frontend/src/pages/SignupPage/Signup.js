@@ -24,27 +24,27 @@ function Signup(props) {
         </h1>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Username" className={theme==="dark"?"dark-input":"bright-input"} />
+            <Form.Control type="email" placeholder="Username" className={theme==="dark"?"dark-input":"light-input"} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="email" placeholder="Email" className={theme==="dark"?"dark-input":"bright-input"}/>
+            <Form.Control type="email" placeholder="Email" className={theme==="dark"?"dark-input":"light-input"}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password" className={theme==="dark"?"dark-input":"bright-input"}/>
+            <Form.Control type="password" placeholder="Password" className={theme==="dark"?"dark-input":"light-input"}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Confirm Password" className={theme==="dark"?"dark-input":"bright-input"}/>
+            <Form.Control type="password" placeholder="Confirm Password" className={theme==="dark"?"dark-input":"light-input"}/>
           </Form.Group>
           
-          <Button type="submit" className={theme==="dark"?"button-dark":"button-bright"}>
+          <Button type="submit" className={theme==="dark"?"button-dark":"button-light"}>
             Sign Up
           </Button> 
         </Form>
-        <hr className={theme==="dark"?"dark-line":"bright-line"}/>
-        <Button className={theme==="dark"?"button-dark":"button-bright"}>
+        <hr className={theme==="dark"?"dark-line":"light-line"}/>
+        <Button className={theme==="dark"?"button-dark":"button-light"}>
           Continue with google
         </Button>
       </div>

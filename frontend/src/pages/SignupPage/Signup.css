@@ -50,12 +50,12 @@
   
   border-radius: 35px;
 }
-.bright-input,.bright-input:focus{
+.light-input,.light-input:focus{
   background-color: #8BB3DD;
   border: 1px solid #4D79B8;
   color: #BCD5EB;
 }
-.bright-input::placeholder{
+.light-input::placeholder{
   color: #BCD5EB;
 }
 .dark-input,.dark-input:focus{
@@ -66,7 +66,7 @@
 .dark-input::placeholder{
   color: #F2D1DB;
 }
-.button-bright{
+.button-light{
   background-color: #9CB5D0;
   border: 1px solid #4D79B8;
   color: #4D79B8;
@@ -75,7 +75,7 @@
   font-weight: 500;
   font-size: 13px;
 }
-.button-bright:hover{
+.button-light:hover{
   border: 1px solid #4D79B8;
   background-color: #4D79B8;
   color: #BCD5EB;
@@ -98,7 +98,7 @@
   width: 100%;
   border: 1px solid #AC6086;
 }
-.bright-line{
+.light-line{
   width: 100%;
   border: 1px solid #BCD5EB;
 }
