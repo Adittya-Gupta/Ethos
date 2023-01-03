@@ -26,7 +26,6 @@
 }
 .blurred-div-dark {
   z-index: 1;
-<<<<<<< HEAD
   position: absolute;
   
   background: rgb(24, 21, 34,0.5);
@@ -34,17 +33,7 @@
   backdrop-filter: blur(7.5px);
   padding-left:4%;
   padding-right: 4%;
-=======
-  position: relative;
-  margin-top: 200px;
-  margin-left: 35%;
-  margin-right: 35%;
-  background: rgba(24, 21, 34, 0.5);
-border: 3px solid #AC6086;
-backdrop-filter: blur(7.5px);
-  padding-left:2%;
-  padding-right:2%;
->>>>>>> a30ac562869f433d27b020919a9cbb9c2caea352
+
   padding-top: 50px;
   padding-bottom: 50px;
   display: flex;
@@ -53,7 +42,6 @@ backdrop-filter: blur(7.5px);
   justify-content: center;
   font-family: 'Roboto', sans-serif;
   gap:2rem;
-<<<<<<< HEAD
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -113,9 +101,4 @@ backdrop-filter: blur(7.5px);
   width: 100%;
   border: 1px solid #BCD5EB;
 }
-=======
-  /* Note: backdrop-filter has minimal browser support */
 
-  border-radius: 35px;
-}
->>>>>>> a30ac562869f433d27b020919a9cbb9c2caea352
