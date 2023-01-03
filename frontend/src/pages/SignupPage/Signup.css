@@ -53,6 +53,7 @@
 .bright-input,.bright-input:focus{
   background-color: #8BB3DD;
   border: 1px solid #4D79B8;
+  color: #BCD5EB;
 }
 .bright-input::placeholder{
   color: #BCD5EB;
@@ -60,6 +61,7 @@
 .dark-input,.dark-input:focus{
   background-color: #2C1E38;
   border: 1px solid #AC6086;
+  color: #F2D1DB;
 }
 .dark-input::placeholder{
   color: #F2D1DB;
