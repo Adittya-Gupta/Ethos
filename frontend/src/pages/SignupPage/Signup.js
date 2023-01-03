@@ -44,7 +44,7 @@ function Signup(props) {
           </Button> 
         </Form>
         <hr className={theme==="dark"?"dark-line":"bright-line"}/>
-        <Button style={{display:"flex",flexDirection:"row"}} className={theme==="dark"?"button-dark":"button-bright"}>
+        <Button style={{display:"flex",flexDirection:"row"}} className={theme==="dark"?"button-dark":"button-light"}>
         <FcGoogle size={"20px"}/>&nbsp;  Continue with google
         </Button>
       </div>

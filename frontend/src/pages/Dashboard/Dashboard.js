@@ -2,8 +2,11 @@ import AnimatedLight from "../../components/AnimatedLight"
 import AnimatedDark from "../../components/AnimatedDark"
 import Navbar from "../../components/NavBar"
 import Card from "../../components/Card"
+import AddIcon from '@mui/icons-material/Add';
 import "./Dashboard.css"
 function Dashboard(props){
+    const plusbackground = props.theme==="light" ? "#3B76CB" : "#2C1E38"
+    const pluscolor = props.theme==="light" ? "#BCD5EB" : "#F2D1DB"
     console.log(props.theme)
     const cards = [
         {
@@ -22,7 +25,7 @@ function Dashboard(props){
         }
     ]
     return(
-        <>
+        <div style={{position:"relative"}}>
             <div>
                 <Navbar name={props.name} theme={props.theme} onSwitch={props.onSwitch}></Navbar>
             </div>
@@ -48,7 +51,10 @@ function Dashboard(props){
           
         </div>
             </div>
-        </>
+        <div style={{position:"fixed",zIndex:10,right:"10px",bottom:"20px",borderRadius:"100%",backgroundColor:plusbackground,padding:"1rem",cursor:"pointer"}} onClick={()=>console.log("plus button clickeds")}>
+            <AddIcon sx={{color:pluscolor}}></AddIcon>
+        </div>
+    </div>
     )
 }
 
