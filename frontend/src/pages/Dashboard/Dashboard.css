@@ -1,0 +1,52 @@
+.blurred-div {
+    z-index: 1;
+    position: relative;
+    margin-top: 2rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    background: rgba(46, 103, 184, 0.5);
+    border: 3px solid #f6c86c;
+    backdrop-filter: blur(7.5px);
+    padding-left:2%;
+    padding-right:2%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'Roboto', sans-serif;
+    gap:2rem;
+    /* Note: backdrop-filter has minimal browser support */
+  
+    border-radius: 35px;
+  }
+  .blurred-div-dark {
+    z-index: 1;
+    position: relative;
+    margin-top: 2rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    background: rgba(24, 21, 34, 0.5);
+    border: 3px solid #AC6086;
+    backdrop-filter: blur(7.5px);
+    padding-left:2%;
+    padding-right:2%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'Roboto', sans-serif;
+    gap:2rem;
+    /* Note: backdrop-filter has minimal browser support */
+  
+    border-radius: 35px;
+  }
+  
+  .subheading{
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 53px;
+  }

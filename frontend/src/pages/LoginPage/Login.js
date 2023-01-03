@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import AnimatedLight from "../../components/AnimatedLight";
 import AnimatedDark from "../../components/AnimatedDark";
 import Button from "react-bootstrap/Button";
