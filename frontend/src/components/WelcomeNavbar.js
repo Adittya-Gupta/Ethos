@@ -5,7 +5,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
 import { Link } from "react-router-dom";
 function WelcomeNavbar(props) {
-  const [alignment, setAlignment] = React.useState("left");
+  const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
 
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
