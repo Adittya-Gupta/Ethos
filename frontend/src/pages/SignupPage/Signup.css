@@ -1,4 +1,4 @@
-.blurred-div-light {
+.blurred-div-light-signup {
   z-index: 1;
   position: absolute;
   
@@ -24,7 +24,7 @@
   
   border-radius: 35px;
 }
-.blurred-div-dark {
+.blurred-div-dark-signup {
   z-index: 1;
   position: absolute;
   

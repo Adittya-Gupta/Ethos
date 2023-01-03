@@ -11,7 +11,7 @@ function Login(props) {
   return (
     <div>
       {theme === "dark" ? <AnimatedDark></AnimatedDark> : <AnimatedLight></AnimatedLight>}
-      <div className={theme==="dark"?"blurred-div-dark":"blurred-div-light"}>
+      <div className={theme==="dark"?"blurred-divdark":"blurred-divlight"}>
         <h1
           style={{
             color: headingcolor,

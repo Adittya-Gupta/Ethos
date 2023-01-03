@@ -1,4 +1,4 @@
-.blurred-div-light {
+.blurred-divlight {
   z-index: 1;
   position: absolute;
   
@@ -24,7 +24,7 @@
   
   border-radius: 35px;
 }
-.blurred-div-dark {
+.blurred-divdark {
   z-index: 1;
   position: absolute;
   
@@ -33,7 +33,7 @@
   backdrop-filter: blur(7.5px);
   padding-left:4%;
   padding-right: 4%;
-
+  margin: 0px;
   padding-top: 50px;
   padding-bottom: 50px;
   display: flex;

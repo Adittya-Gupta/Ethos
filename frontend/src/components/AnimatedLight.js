@@ -26,28 +26,6 @@ function AnimatedLight() {
           },
         },
         fpsLimit: 120,
-        interactivity: {
-          events: {
-            onClick: {
-              enable: true,
-              mode: "push",
-            },
-            onHover: {
-              enable: true,
-              mode: "repulse",
-            },
-            resize: true,
-          },
-          modes: {
-            push: {
-              quantity: 4,
-            },
-            repulse: {
-              distance:  120,
-              duration: 0.4,
-            },
-          },
-        },
         particles: {
           color: {
             value: "#f6c86c",
@@ -70,7 +48,6 @@ function AnimatedLight() {
             value: 80,
           },
           opacity: {
-            value: 0.75,
             random: true,
           },
           shape: {
@@ -81,7 +58,7 @@ function AnimatedLight() {
             },
           },
           size: {
-            value: 14,
+            value: 6,
           },
         },
         detectRetina: true,

@@ -11,7 +11,7 @@ function Signup(props) {
   return (
     <div>
       {theme === "dark" ? <AnimatedDark></AnimatedDark> : <AnimatedLight></AnimatedLight>}
-      <div className={theme==="dark"?"blurred-div-dark":"blurred-div-light"}>
+      <div className={theme==="dark"?"blurred-div-dark-signup":"blurred-div-light-signup"}>
       <h1
           style={{
             color: headingcolor,
@@ -43,9 +43,9 @@ function Signup(props) {
             Sign Up
           </Button> 
         </Form>
-        <hr className={theme==="dark"?"dark-line":"light-line"}/>
-        <Button className={theme==="dark"?"button-dark":"button-light"}>
-          Continue with google
+        <hr className={theme==="dark"?"dark-line":"bright-line"}/>
+        <Button style={{display:"flex",flexDirection:"row"}} className={theme==="dark"?"button-dark":"button-bright"}>
+        <FcGoogle size={"20px"}/>&nbsp;  Continue with google
         </Button>
       </div>
     </div>

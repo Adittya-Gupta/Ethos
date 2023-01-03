@@ -5,6 +5,22 @@ import Card from "../../components/Card"
 import "./Dashboard.css"
 function Dashboard(props){
     console.log(props.theme)
+    const cards = [
+        {
+            title: "Audio 1",
+            createdOn: "Janurary 1, 2021",
+            lastModified: "Janurary 1, 2021",
+            duration: "1 min 30 sec",
+            comments: "0"
+        },
+        {
+            title: "Audio 2",
+            createdOn: "Janurary 1, 2022",
+            lastModified: "February 1, 2021",
+            duration: "1 min 30 sec",
+            comments: "3"
+        }
+    ]
     return(
         <>
             <div>
@@ -24,7 +40,12 @@ function Dashboard(props){
           </div>
           <hr style={{color:props.theme==="light" ? "#BCD5EB" : "#AC6086", height:"10px",borderWidth:"5px",width:"100%"}} />
           <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Here are your recent audios :</div>
-          <Card theme={props.theme}></Card>
+          {
+                cards.map((card)=>{
+                    return <Card theme={props.theme} title={card.title} createdOn={card.createdOn} lastModified={card.lastModified} duration={card.duration} comments={card.comments}></Card>
+                })
+          }
+          
         </div>
             </div>
         </>

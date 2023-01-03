@@ -6,7 +6,7 @@ function Welcome(props) {
   return (
     <>
       <WelcomeNavbar theme={props.theme} onSwitch={props.onSwitch} />
-      <div class="relative">
+      <div className="relative">
         <img
           style={{ height: "30rem" }}
           src={
