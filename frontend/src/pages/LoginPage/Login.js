@@ -45,9 +45,8 @@ function Login() {
           Continue with google
         </Button>
       </div>
-    );
-  }
-  
+    </div>
+  );
 }
 
 export default Login;
