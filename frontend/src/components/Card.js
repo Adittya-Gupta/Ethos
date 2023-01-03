@@ -5,8 +5,14 @@ function Card(props){
     const t2color = props.theme==="light" ? "#D9D9D9" : "#F2D1DB"
     const linecolor = props.theme==="light" ? "#BCD5EB" : "#AC6086"
     const deleteColor = props.theme==="light" ? "#3B84CB" : "#F2D1DB"
+    const handleEditButton = (e) => {
+        if(!e.target.classList.contains("MuiSvgIcon-root")){
+            // This if condition is to prevent the click event from being triggered when the delete button is clicked
+            console.log("edit button was clicked")
+        }
+    }
     return(
-        <div style={{backgroundColor:backcolor, marginTop:"1rem", width:"100%", height:"12rem",borderRadius:"24px",display:"flex",flexDirection:"row",position:"relative"}}>
+        <div style={{backgroundColor:backcolor, marginTop:"1rem", width:"100%", height:"12rem",borderRadius:"24px",display:"flex",flexDirection:"row",position:"relative",cursor:"pointer"}} onClick={(e)=>{handleEditButton(e)}}>
             <div style={{width:"40%",display:"flex",alignItems:"flex-end",margin:"1rem",fontSize:"32px",color:tcolor}}>
                 {props.title}
             </div>
@@ -17,7 +23,7 @@ function Card(props){
                  <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Duration :</span> {props.duration}</div>
                  <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Comments :</span> {props.comments}</div>
         </div>
-        <div style={{position:"absolute",right:"10px",bottom:"10px",cursor:"pointer"}} onClick={()=>console.log("hello")}>
+        <div style={{position:"absolute",right:"10px",bottom:"10px",cursor:"pointer"}} onClick={()=>console.log("delete button was clicked")} className="delete-button-dashboard">
             <DeleteOutlinedIcon sx={{color : deleteColor}}></DeleteOutlinedIcon>
         </div>
         </div>
