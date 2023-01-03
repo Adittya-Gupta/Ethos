@@ -17,7 +17,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Welcome theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}/>}>
           </Route>
-          <Route path="/login" element={<LoginIn></LoginIn>}></Route>
+          <Route path="/login" element={<LoginIn theme={theme}></LoginIn>}></Route>
         </Routes>
       </Router>
   );

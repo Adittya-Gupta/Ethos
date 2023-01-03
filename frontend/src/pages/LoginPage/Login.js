@@ -4,9 +4,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./Login.css";
 import {FcGoogle} from "@react-icons/all-files/fc/FcGoogle";
-function Login() {
-  const location = useLocation();
-  const { theme } = location.state;
+function Login(props) {
+  const theme = props.theme
   console.log(theme);
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
   return (
@@ -40,8 +39,8 @@ function Login() {
           </Button> 
         </Form>
         <hr className={theme==="dark"?"dark-line":"bright-line"}/>
-        <Button className={theme==="dark"?"button-dark":"button-bright"}>
-          Continue with google
+        <Button style={{display:"flex",flexDirection:"row"}} className={theme==="dark"?"button-dark":"button-bright"}>
+        <FcGoogle size={"20px"}/>&nbsp;  Continue with google
         </Button>
       </div>
     </div>
