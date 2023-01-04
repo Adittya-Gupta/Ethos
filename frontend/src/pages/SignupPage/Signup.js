@@ -39,12 +39,12 @@ function Signup(props) {
             <Form.Control type="password" placeholder="Confirm Password" className={theme==="dark"?"dark-input":"light-input"}/>
           </Form.Group>
           
-          <Button type="submit" className={theme==="dark"?"button-dark":"button-light"}>
+          <Button type="submit" onClick={()=>{navigate('/dashboard')}} className={theme==="dark"?"button-dark":"button-light"}>
             Sign Up
           </Button> 
         </Form>
         <hr className={theme==="dark"?"dark-line":"light-line"}/>
-        <Button style={{display:"flex",flexDirection:"row"}} className={theme==="dark"?"button-dark":"button-light"}>
+        <Button style={{display:"flex",flexDirection:"row"}} onClick={()=>{navigate('/dashboard')}} className={theme==="dark"?"button-dark":"button-light"}>
         <FcGoogle size={"20px"}/>&nbsp;  Continue with google
         </Button>
       </div>

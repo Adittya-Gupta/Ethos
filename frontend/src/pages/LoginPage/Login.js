@@ -2,9 +2,11 @@ import AnimatedLight from "../../components/AnimatedLight";
 import AnimatedDark from "../../components/AnimatedDark";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 import {FcGoogle} from "@react-icons/all-files/fc/FcGoogle";
 function Login(props) {
+  const navigate = useNavigate();
   const theme = props.theme
   console.log(theme);
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
@@ -34,12 +36,12 @@ function Login(props) {
             </div>
           </Form.Group>
           
-          <Button href="/dashboard" type="submit" className={theme==="dark"?"button-dark":"button-light"}>
+          <Button onClick={()=>{navigate('/dashboard')}} type="submit" className={theme==="dark"?"button-dark":"button-light"}>
             Login
           </Button> 
         </Form>
         <hr className={theme==="dark"?"dark-line":"light-line"}/>
-        <Button style={{display:"flex",flexDirection:"row"}} className={theme==="dark"?"button-dark":"button-light"}>
+        <Button style={{display:"flex",flexDirection:"row"}} onClick={()=>{navigate('/dashboard')}} className={theme==="dark"?"button-dark":"button-light"}>
         <FcGoogle size={"20px"}/>&nbsp;  Continue with google
         </Button>
       </div>
