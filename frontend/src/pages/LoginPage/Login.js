@@ -34,7 +34,7 @@ function Login(props) {
             </div>
           </Form.Group>
           
-          <Button type="submit" className={theme==="dark"?"button-dark":"button-light"}>
+          <Button href="/dashboard" type="submit" className={theme==="dark"?"button-dark":"button-light"}>
             Login
           </Button> 
         </Form>
