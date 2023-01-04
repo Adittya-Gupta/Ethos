@@ -9,7 +9,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-
+import Add from "./pages/AddVideo/Add";
 function App() {
   const [theme, setTheme] = useState("light");
   return (
@@ -20,6 +20,7 @@ function App() {
           <Route path="/login" element={<LoginIn theme={theme}></LoginIn>}></Route>
           <Route path="/dashboard" element={<Dashboard theme={theme} name="Adittya" onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Dashboard>}></Route>
           <Route path="/signup" element={<Signup theme={theme}></Signup>}></Route>
+          <Route path='/addvideo' element={<Add theme={theme} name="Adittya" onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Add>}></Route>
         </Routes>
       </Router>
   );
