@@ -2,9 +2,11 @@ import AnimatedLight from "../../components/AnimatedLight";
 import AnimatedDark from "../../components/AnimatedDark";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from 'react-router-dom';
 import "./Signup.css";
 import {FcGoogle} from "@react-icons/all-files/fc/FcGoogle";
 function Signup(props) {
+  const navigate = useNavigate();
   const theme = props.theme
   console.log(theme);
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
