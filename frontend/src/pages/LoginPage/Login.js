@@ -5,11 +5,33 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 import {FcGoogle} from "@react-icons/all-files/fc/FcGoogle";
+import {signInWithGoogle, signIn, resetPassword} from "../../firebase.js";
+import { useState } from "react";
 function Login(props) {
   const navigate = useNavigate();
   const theme = props.theme
-  console.log(theme);
+  const [email,setEmail]=useState("");
+  const [passwd,setPasswd]=useState("");
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
+  const handleGoogleAuth = () => {
+    signInWithGoogle();
+    navigate('/dashboard');
+  };
+  const handleLogin = () => {
+    let err = signIn(email,passwd);
+    if(err){
+      alert(err);
+      return;
+    }
+    navigate('/dashboard');
+  };
+  const handleForgotPasswd = () => {
+    if(email===""){
+      alert("Please enter your email first");
+      return;
+    }
+    resetPassword(email);
+  }
   return (
     <div>
       {theme === "dark" ? <AnimatedDark></AnimatedDark> : <AnimatedLight></AnimatedLight>}
@@ -26,22 +48,22 @@ function Login(props) {
         </h1>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Username" className={theme==="dark"?"dark-input":"light-input"} />
+            <Form.Control type="email" placeholder="Username" onChange={(e)=>setEmail(e.target.value)} className={theme==="dark"?"dark-input":"light-input"} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password" className={theme==="dark"?"dark-input":"light-input"}/>
-            <div style={{color:headingcolor,fontSize:"14px",marginTop:"2%"}}>
+            <Form.Control type="password" placeholder="Password" onChange={(e)=>setPasswd(e.target.value)} className={theme==="dark"?"dark-input":"light-input"}/>
+            <div style={{color:headingcolor,fontSize:"14px",marginTop:"2%",cursor:"pointer"}} onClick={handleForgotPasswd}>
               Forgot Password?
             </div>
           </Form.Group>
           
-          <Button onClick={()=>{navigate('/dashboard')}} type="submit" className={theme==="dark"?"button-dark":"button-light"}>
+          <Button onClick={handleLogin} type="submit" className={theme==="dark"?"button-dark":"button-light"}>
             Login
           </Button> 
         </Form>
         <hr className={theme==="dark"?"dark-line":"light-line"}/>
-        <Button style={{display:"flex",flexDirection:"row"}} onClick={()=>{navigate('/dashboard')}} className={theme==="dark"?"button-dark":"button-light"}>
+        <Button style={{display:"flex",flexDirection:"row"}} onClick={handleGoogleAuth} className={theme==="dark"?"button-dark":"button-light"}>
         <FcGoogle size={"20px"}/>&nbsp;  Continue with google
         </Button>
       </div>

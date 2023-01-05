@@ -3,15 +3,20 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {signOut, auth} from "../firebase"
 function Navbar(props) {
   const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
-
+  const navigate = useNavigate();
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
       props.onSwitch();
     }
+  };
+  const handleSignOut = () => {
+    signOut();
+    navigate('/')
   };
   return (
     <div
@@ -27,7 +32,7 @@ function Navbar(props) {
           className="flex items-center justify-between py-2 md:justify-start md:space-x-10"
         >
           <div style={{color : props.theme==="light" ? "#4D79B8" : "#C6778F", fontWeight:800}} className="flex justify-start lg:w-0 lg:flex-1">
-            {props.name}
+            {auth.currentUser ? auth.currentUser.displayName : "User"}
           </div>
           <ToggleButtonGroup
             sx={{
@@ -64,17 +69,17 @@ function Navbar(props) {
             </ToggleButton>
           </ToggleButtonGroup>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <Link
+            <div
               style={{
                 color: props.theme === "light" ? "#4D79B8" : "#C6778F",
                 borderColor: props.theme === "light" ? "#4D79B8" : "#C6778F",
+                cursor: "pointer",
               }}
-              to="/"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
-              state={{"theme":props.theme}}
+              onClick={handleSignOut}
             >
               Sign out
-            </Link>
+            </div>
           </div>
         </div>
       </div>

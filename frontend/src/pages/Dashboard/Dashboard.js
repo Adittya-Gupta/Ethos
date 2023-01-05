@@ -4,6 +4,7 @@ import Navbar from "../../components/NavBar"
 import Card from "../../components/Card"
 import AddIcon from '@mui/icons-material/Add';
 import "./Dashboard.css"
+import {auth} from "../../firebase.js"
 function Dashboard(props){
     const plusbackground = props.theme==="light" ? "#3B76CB" : "#2C1E38"
     const pluscolor = props.theme==="light" ? "#BCD5EB" : "#F2D1DB"
@@ -39,7 +40,7 @@ function Dashboard(props){
               fontSize: "44px",
             }}
           >
-            Hey {props.name},
+            Hey {auth.currentUser ? auth.currentUser.displayName : "there"},
           </div>
           <hr style={{color:props.theme==="light" ? "#BCD5EB" : "#AC6086", height:"10px",borderWidth:"5px",width:"100%"}} />
           <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Here are your recent audios :</div>

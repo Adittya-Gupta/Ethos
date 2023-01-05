@@ -5,11 +5,25 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from 'react-router-dom';
 import "./Signup.css";
 import {FcGoogle} from "@react-icons/all-files/fc/FcGoogle";
+import {signUp} from "../../firebase.js";
+import { useState } from "react"; 
 function Signup(props) {
   const navigate = useNavigate();
+  const [email,setEmail]=useState("");
+  const [passwd,setPasswd]=useState("");
+  const [username, setUsername] = useState("");
   const theme = props.theme
   console.log(theme);
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
+  const handleSignup = () => {
+    console.log(username)
+    let err = signUp(email,passwd,username);
+    if(err){
+      alert(err);
+      return;
+    }
+    navigate('/dashboard');
+  };
   return (
     <div>
       {theme === "dark" ? <AnimatedDark></AnimatedDark> : <AnimatedLight></AnimatedLight>}
@@ -26,11 +40,11 @@ function Signup(props) {
         </h1>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Username" className={theme==="dark"?"dark-input":"light-input"} />
+            <Form.Control type="text" placeholder="Username" onChange={(e)=>setUsername(e.target.value)} className={theme==="dark"?"dark-input":"light-input"} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="email" placeholder="Email" className={theme==="dark"?"dark-input":"light-input"}/>
+            <Form.Control type="email" placeholder="Email" onChange={(e)=>setEmail(e.target.value)} className={theme==="dark"?"dark-input":"light-input"}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -38,10 +52,10 @@ function Signup(props) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Confirm Password" className={theme==="dark"?"dark-input":"light-input"}/>
+            <Form.Control type="password" placeholder="Confirm Password" onChange={(e)=>setPasswd(e.target.value)} className={theme==="dark"?"dark-input":"light-input"}/>
           </Form.Group>
           
-          <Button type="submit" onClick={()=>{navigate('/dashboard')}} className={theme==="dark"?"button-dark":"button-light"}>
+          <Button type="submit" onClick={handleSignup} className={theme==="dark"?"button-dark":"button-light"}>
             Sign Up
           </Button> 
         </Form>
