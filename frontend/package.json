@@ -15,6 +15,7 @@
     "antd": "^5.1.2",
     "bootstrap": "^5.2.3",
     "bootstrap-switch-button-react": "^1.2.0",
+    "firebase": "^9.15.0",
     "react": "^18.2.0",
     "react-anime": "^4.1.1",
     "react-bootstrap": "^2.7.0",
