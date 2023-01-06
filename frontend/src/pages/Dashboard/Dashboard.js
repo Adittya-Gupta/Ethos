@@ -8,10 +8,12 @@ import {auth} from "../../firebase.js"
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 function Dashboard(props){
-    useEffect(()=>{
-        console.log(auth.currentUser)
-    })
     const navigate = useNavigate();
+    useEffect(()=>{
+        if(auth.currentUser==null){
+            navigate("/login")
+        }
+    })
     const plusbackground = props.theme==="light" ? "#3B76CB" : "#2C1E38"
     const pluscolor = props.theme==="light" ? "#BCD5EB" : "#F2D1DB"
     console.log(props.theme)
