@@ -22,7 +22,7 @@ function Signup(props) {
       alert(err);
       return;
     }
-    navigate('/dashboard');
+    navigate('/emailverify');
   };
   return (
     <div>
@@ -59,10 +59,6 @@ function Signup(props) {
             Sign Up
           </Button> 
         </Form>
-        <hr className={theme==="dark"?"dark-line":"light-line"}/>
-        <Button style={{display:"flex",flexDirection:"row"}} onClick={()=>{navigate('/dashboard')}} className={theme==="dark"?"button-dark":"button-light"}>
-        <FcGoogle size={"20px"}/>&nbsp;  Continue with google
-        </Button>
       </div>
     </div>
     );

@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth,GoogleAuthProvider,signInWithPopup,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile,sendPasswordResetEmail } from "firebase/auth";
+import { getAuth,GoogleAuthProvider,signInWithPopup,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile,sendPasswordResetEmail,sendEmailVerification } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,16 +37,27 @@ export const signUp = (email,password,username) => {
     createUserWithEmailAndPassword(auth,email,password).then(()=>{
     updateProfile(auth.currentUser,{
         displayName:username
-    }).then(()=>{
+    }
+    ).then(()=>{
         console.log(auth.currentUser)
         console.log("Profile Updated")
-    })   
+    }).then(()=>{
+        sendEmailVerification(auth.currentUser).then(()=>{
+            alert("Verification Email Sent")
+        })
+    })
     }).catch((error)=>{
         return error.message
     })
     console.log(auth.currentUser)
 }
-
+export const SendVerificationEmail = () => {
+    sendEmailVerification(auth.currentUser).then(()=>{
+        alert("Verification Email Sent")
+    }).catch((error)=>{
+        alert(error.message)
+    })
+}
 export const signIn = async (email,password) => {
     await signInWithEmailAndPassword(auth,email,password).then((result)=>{
         console.log(result.user)

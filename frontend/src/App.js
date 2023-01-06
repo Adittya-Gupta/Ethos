@@ -1,4 +1,5 @@
 import "./App.css";
+import EmailVerify from "./pages/EmailVerify/emailverify"
 import Welcome from "./pages/Welcome";
 import LoginIn from "./pages/LoginPage/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
