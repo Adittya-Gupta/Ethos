@@ -20,6 +20,9 @@ function Add(props) {
     var url = URL.createObjectURL(file.originFileObj);
     seVideoSrc(url);
   };
+  const Convert=async () =>{
+    
+  }
   return (
     <div style={{ position: "relative" }}>
       <div>
@@ -125,7 +128,7 @@ function Add(props) {
                 </InputGroup>
               </div>
               <div style={{display:"flex",justifyContent:"center",marginTop:"2rem"}}>
-                <Button disabled={videoSrc===""} style={{color:props.theme==="light" ? "#FFFFFF" : "#F2D1DB"}}>
+                <Button disabled={videoSrc===""} onClick={Convert} style={{color:props.theme==="light" ? "#FFFFFF" : "#F2D1DB"}}>
                     Convert
                 </Button>
               </div>

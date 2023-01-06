@@ -2,7 +2,6 @@ import AnimatedLight from "../../components/AnimatedLight";
 import AnimatedDark from "../../components/AnimatedDark";
 import Button from "react-bootstrap/Button";
 import "./emailverify.css"
-import { Grid, Oval, TailSpin } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom';
 import {SendVerificationEmail,auth} from "../../firebase.js";
 import { useEffect } from "react";
