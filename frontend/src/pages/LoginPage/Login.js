@@ -14,8 +14,11 @@ function Login(props) {
   const [passwd,setPasswd]=useState("");
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
   const handleGoogleAuth = () => {
-    signInWithGoogle();
-    navigate('/dashboard');
+    signInWithGoogle().then(()=>{
+      navigate('/dashboard');
+    }).catch((err)=>{
+      alert(err);
+    });
   };
   const handleLogin = () => {
     let err = signIn(email,passwd);

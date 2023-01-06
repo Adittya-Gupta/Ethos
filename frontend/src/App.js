@@ -10,6 +10,7 @@ import {
   Route,
 } from "react-router-dom";
 import Add from "./pages/AddVideo/Add";
+import EditAudio from "./pages/EditAudio/EditAudio";
 function App() {
   const [theme, setTheme] = useState("light");
   return (
@@ -18,9 +19,10 @@ function App() {
           <Route path="/" element={<Welcome theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}/>}>
           </Route>
           <Route path="/login" element={<LoginIn theme={theme}></LoginIn>}></Route>
-          <Route path="/dashboard" element={<Dashboard theme={theme} name="Adittya" onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Dashboard>}></Route>
+          <Route path="/dashboard" element={<Dashboard theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Dashboard>}></Route>
           <Route path="/signup" element={<Signup theme={theme}></Signup>}></Route>
-          <Route path='/addvideo' element={<Add theme={theme} name="Adittya" onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Add>}></Route>
+          <Route path='/addvideo' element={<Add theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Add>}></Route>
+          <Route path="/editaudio" element={<EditAudio theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></EditAudio>}></Route>
         </Routes>
       </Router>
   );

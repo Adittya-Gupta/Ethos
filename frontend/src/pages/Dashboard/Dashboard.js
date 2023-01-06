@@ -5,7 +5,9 @@ import Card from "../../components/Card"
 import AddIcon from '@mui/icons-material/Add';
 import "./Dashboard.css"
 import {auth} from "../../firebase.js"
+import { useNavigate } from 'react-router-dom';
 function Dashboard(props){
+    const navigate = useNavigate();
     const plusbackground = props.theme==="light" ? "#3B76CB" : "#2C1E38"
     const pluscolor = props.theme==="light" ? "#BCD5EB" : "#F2D1DB"
     console.log(props.theme)
@@ -52,7 +54,7 @@ function Dashboard(props){
           
         </div>
             </div>
-        <div style={{position:"fixed",zIndex:10,right:"10px",bottom:"20px",borderRadius:"100%",backgroundColor:plusbackground,padding:"1rem",cursor:"pointer"}} onClick={()=>console.log("plus button clickeds")}>
+        <div style={{position:"fixed",zIndex:10,right:"10px",bottom:"20px",borderRadius:"100%",backgroundColor:plusbackground,padding:"1rem",cursor:"pointer"}} onClick={()=>navigate("/addvideo")}>
             <AddIcon sx={{color:pluscolor}}></AddIcon>
         </div>
     </div>

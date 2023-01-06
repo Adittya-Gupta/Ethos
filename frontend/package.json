@@ -18,6 +18,7 @@
     "firebase": "^9.15.0",
     "react": "^18.2.0",
     "react-anime": "^4.1.1",
+    "react-audio-spectrum": "^0.1.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-player": "^2.11.0",

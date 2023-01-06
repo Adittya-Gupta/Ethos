@@ -1,0 +1,59 @@
+.Player {
+    width: 500px;
+    margin: 0 auto;
+    padding: 10px 10px 20px;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .Player button {
+    padding: 5px;
+    margin: 10px 10px 0px 10px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: black;
+    font-weight: bold;
+    background-color: lightblue;
+    cursor: pointer;
+    border-width: 1px;
+  }
+  
+  .AudioSpectrum {
+    margin-top: 10px;
+    background-color: rgb(43, 40, 40);
+    border-radius: 5px;
+    background-image: linear-gradient(
+        rgba(21, 126, 21, 0.3) 0.1px,
+        transparent 0.1em
+      ),
+      linear-gradient(90deg, rgba(12, 94, 12, 0.3) 0.1px, transparent 0.1em);
+    background-size: 5px 5px;
+  }
+  
+  .ProgressBar1 {
+    width: 520px;
+    height: 2px;
+    margin: 0 auto;
+    padding-bottom: 14px;
+    /* background-color: darkslategray; */
+    color: white;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .ProgressBar2 {
+    height: 3px;
+    padding-bottom: 15px;
+    /* background-color: rgb(49, 184, 22); */
+    color: white;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  

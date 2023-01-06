@@ -1,0 +1,12 @@
+.AudioSpectrum {
+    margin-top: 10px;
+    background-color: rgb(43, 40, 40);
+    border-radius: 5px;
+    background-image: linear-gradient(
+        rgba(21, 126, 21, 0.3) 0.1px,
+        transparent 0.1em
+      ),
+      linear-gradient(90deg, rgba(12, 94, 12, 0.3) 0.1px, transparent 0.1em);
+    background-size: 5px 5px;
+  }
+  
