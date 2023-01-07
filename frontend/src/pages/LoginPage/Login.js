@@ -20,13 +20,14 @@ function Login(props) {
       alert(err);
     });
   };
-  const handleLogin = () => {
-    let err = signIn(email,passwd);
+  const handleLogin = async () => {
+    let err = await signIn(email,passwd);
+    console.log(err);
     if(err){
       alert(err);
       return;
     }
-    navigate('/dashboard');
+    navigate('/emailverify');
   };
   const handleForgotPasswd = () => {
     if(email===""){
@@ -61,7 +62,7 @@ function Login(props) {
             </div>
           </Form.Group>
           
-          <Button onClick={handleLogin} type="submit" className={theme==="dark"?"button-dark":"button-light"}>
+          <Button onClick={handleLogin} className={theme==="dark"?"button-dark":"button-light"}>
             Login
           </Button> 
         </Form>

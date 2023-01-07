@@ -73,11 +73,14 @@ export const SendVerificationEmail = () => {
     })
 }
 export const signIn = async (email,password) => {
+    let err =null
     await signInWithEmailAndPassword(auth,email,password).then((result)=>{
         console.log(result.user)
     }).catch((error)=>{
-        return error.message
+        console.log('hello')
+        err=error.message
     })
+    return err
 }
 
 export const resetPassword = (email) => {
