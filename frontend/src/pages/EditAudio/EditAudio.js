@@ -17,6 +17,7 @@ function EditAudio(props) {
   const backColor = props.theme === "light" ? "#8BB3DD" : "#2C1E38"; 
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
   const [comment,setComment] = useState("");
+  const [isPaussed, setIsPaussed] = useState(true);
   const handleChange = ({ file }) => {
     console.log(file);
     var url = URL.createObjectURL(file.originFileObj);
@@ -46,8 +47,9 @@ function EditAudio(props) {
                 setComment("");
                 last.current = -1;
             }
-        }
-        }, 1000);
+          }
+          setIsPaussed(audioRef.current.paused);
+        }, 200);
         return () => clearInterval(interval);
     },);
   return (
@@ -95,7 +97,7 @@ function EditAudio(props) {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label style={{fontSize:"24px",fontWeight:"600",color:titleColor}}>Add/Edit Comment</Form.Label>
-                <Form.Control as="textarea" rows={5} style={{backgroundColor:backColor, color:tcolor}} value={comment} onChange={(e)=>setComment(e.target.value)}/>
+                <Form.Control as="textarea" rows={5} style={{backgroundColor:backColor, color:tcolor}} value={comment} onChange={(e)=>setComment(e.target.value)} disabled={!isPaussed}/>
               </Form.Group>
               <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
             </div>

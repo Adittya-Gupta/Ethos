@@ -27,6 +27,7 @@
     "react-tsparticles": "^2.7.1",
     "styled-components": "^5.3.6",
     "tsparticles": "^2.7.1",
+    "video-to-audio": "^1.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

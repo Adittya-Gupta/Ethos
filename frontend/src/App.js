@@ -13,7 +13,7 @@ import {
 import Add from "./pages/AddVideo/Add";
 import EditAudio from "./pages/EditAudio/EditAudio";
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   return (
     <Router>
       <Routes>
