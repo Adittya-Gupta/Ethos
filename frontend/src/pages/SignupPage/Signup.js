@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from 'react-router-dom';
 import "./Signup.css";
-import {FcGoogle} from "@react-icons/all-files/fc/FcGoogle";
 import {signUp} from "../../firebase.js";
 import { useState } from "react"; 
 function Signup(props) {
