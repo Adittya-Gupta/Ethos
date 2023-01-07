@@ -43,6 +43,7 @@ export const checkEmail = async (email) => {
     })
 }
 export const signUp = async (email,password,username) => {
+    let err = null
     await createUserWithEmailAndPassword(auth,email,password).then(()=>{
         console.log('hello')
         updateProfile(auth.currentUser,{
@@ -54,12 +55,15 @@ export const signUp = async (email,password,username) => {
         }).then(()=>{
             sendEmailVerification(auth.currentUser).then(()=>{
                 alert("Verification Email Sent")
+                return "Verification Email Sent"
             })
         })
     }).catch((error)=>{
-        console.log(error.message)
-        return error.message
+        console.log(error.message+"hello 1")
+        err = error.message
+        // return error.message
     })
+    return err
 }
 export const SendVerificationEmail = () => {
     sendEmailVerification(auth.currentUser).then(()=>{
