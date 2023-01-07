@@ -28,7 +28,7 @@ function Signup(props) {
       alert(err);
       return;
     } 
-    // navigate('/emailverify');
+    navigate('/emailverify');
   };
   return (
     <div>
