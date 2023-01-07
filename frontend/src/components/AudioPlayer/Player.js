@@ -16,7 +16,6 @@ export function Player({ showControls = false, audioUrl }) {
         <audio
           crossOrigin="anonymous"
           key={audioUrl}
-          controls={showControls}
           id={audioUrl}
           ref={audioRef}
         >

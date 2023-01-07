@@ -4,34 +4,35 @@ import PauseIcon from "@mui/icons-material/Pause";
 import StopIcon from "@mui/icons-material/Stop";
 
 export function PlayerButtons({ audioUrl, audioRef }) {
-  const [isPaused, setIsPaused] = useState(false);
-  const [isStopped, setIsStopped] = useState(true);
+  // const [isPaused, setIsPaused] = useState(false);
+  // const [isStopped, setIsStopped] = useState(true);
 
   // Let's reset the play button look after a file
   // has been dropped while another being played
-  useEffect(() => {
-    setIsStopped(true);
-  }, [audioUrl]);
-
+  // useEffect(() => {
+  //   setIsStopped(true);
+  // }, [audioUrl]);
+  if(audioRef.current){
   return (
     <div>
       <button
         onClick={() => {
           audioRef.current.load();
-          setIsPaused(false);
-          setIsStopped(true);
+          // setIsPaused(false);
+          // setIsStopped(true);
         }}
       >
         <StopIcon />
       </button>
-      {isPaused || isStopped ? (
+      {/* {isPaused || isStopped ? ( */}
+      {audioRef.current.isStopped ? (
         <button
           onClick={() => {
             audioRef.current.play();
-            setIsPaused(false);
-            setIsStopped(false);
+            // setIsPaused(false);
+            // setIsStopped(false);
           }}
-          style={{ backgroundColor: isStopped ? "lightblue" : "goldenrod" }}
+          style={{ backgroundColor: audioRef.current.isStopped ? "lightblue" : "goldenrod" }}
         >
           <PlayArrowIcon />
         </button>
@@ -39,8 +40,8 @@ export function PlayerButtons({ audioUrl, audioRef }) {
         <button
           onClick={() => {
             audioRef.current.pause();
-            setIsPaused(true);
-            setIsStopped(false);
+            // setIsPaused(true);
+            // setIsStopped(false);
             console.log(audioRef.current.currentTime);
           }}
           style={{ backgroundColor: "goldenrod" }}
@@ -49,6 +50,6 @@ export function PlayerButtons({ audioUrl, audioRef }) {
         </button>
       )}
     </div>
-  );
+  );}
 }
 
