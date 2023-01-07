@@ -1,4 +1,5 @@
 import "./App.css";
+import EmailVerify from "./pages/EmailVerify/emailverify"
 import Welcome from "./pages/Welcome";
 import LoginIn from "./pages/LoginPage/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -23,6 +24,7 @@ function App() {
           <Route path="/signup" element={<Signup theme={theme}></Signup>}></Route>
           <Route path='/addvideo' element={<Add theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Add>}></Route>
           <Route path="/editaudio" element={<EditAudio theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></EditAudio>}></Route>
+          <Route path="/emailverify" element={<EmailVerify theme={theme}></EmailVerify>}></Route>
         </Routes>
       </Router>
   );
