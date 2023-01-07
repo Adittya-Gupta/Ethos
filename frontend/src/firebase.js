@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth,GoogleAuthProvider,signInWithPopup,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile,sendPasswordResetEmail,sendEmailVerification } from "firebase/auth";
+import { getAuth,GoogleAuthProvider,signInWithPopup,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile,sendPasswordResetEmail,sendEmailVerification,fetchSignInMethodsForEmail } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,25 +31,35 @@ export const signOut = () => {
         alert(error.message)
     })
 }
-
-export const signUp = (email,password,username) => {
-    console.log(username+"hello")
-    createUserWithEmailAndPassword(auth,email,password).then(()=>{
-    updateProfile(auth.currentUser,{
-        displayName:username
-    }
-    ).then(()=>{
-        console.log(auth.currentUser)
-        console.log("Profile Updated")
-    }).then(()=>{
-        sendEmailVerification(auth.currentUser).then(()=>{
-            alert("Verification Email Sent")
-        })
-    })
+export const checkEmail = async (email) => {
+    fetchSignInMethodsForEmail(auth,email).then((result)=>{
+        if(result.length===0){
+            return false
+        }else{
+            return true
+        }
     }).catch((error)=>{
+        alert(error.message)
+    })
+}
+export const signUp = async (email,password,username) => {
+    await createUserWithEmailAndPassword(auth,email,password).then(()=>{
+        console.log('hello')
+        updateProfile(auth.currentUser,{
+            displayName:username
+        }
+        ).then(()=>{
+            console.log(auth.currentUser)
+            console.log("Profile Updated")
+        }).then(()=>{
+            sendEmailVerification(auth.currentUser).then(()=>{
+                alert("Verification Email Sent")
+            })
+        })
+    }).catch((error)=>{
+        console.log(error.message)
         return error.message
     })
-    console.log(auth.currentUser)
 }
 export const SendVerificationEmail = () => {
     sendEmailVerification(auth.currentUser).then(()=>{

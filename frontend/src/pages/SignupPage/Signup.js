@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from 'react-router-dom';
 import "./Signup.css";
-import {signUp} from "../../firebase.js";
+import {signUp,checkEmail} from "../../firebase.js";
 import { useState } from "react"; 
 function Signup(props) {
   const navigate = useNavigate();
@@ -14,14 +14,21 @@ function Signup(props) {
   const theme = props.theme
   console.log(theme);
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
-  const handleSignup = () => {
-    console.log(username)
-    let err = signUp(email,passwd,username);
+  const handleSignup = async () => {
+    console.log(email,passwd,username)
+    const emailExists = await checkEmail(email);
+    if(emailExists){
+      alert("Email already exists");
+      return;
+    }
+    const err = await signUp(email,passwd,username);
+    console.log("hello");
+    console.log(err);
     if(err){
       alert(err);
       return;
-    }
-    navigate('/emailverify');
+    } 
+    // navigate('/emailverify');
   };
   return (
     <div>
@@ -54,7 +61,7 @@ function Signup(props) {
             <Form.Control type="password" placeholder="Confirm Password" onChange={(e)=>setPasswd(e.target.value)} className={theme==="dark"?"dark-input":"light-input"}/>
           </Form.Group>
           
-          <Button type="submit" onClick={handleSignup} className={theme==="dark"?"button-dark":"button-light"}>
+          <Button onClick={handleSignup} className={theme==="dark"?"button-dark":"button-light"}>
             Sign Up
           </Button> 
         </Form>
