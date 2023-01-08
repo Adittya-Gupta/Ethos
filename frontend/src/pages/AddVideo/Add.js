@@ -8,6 +8,7 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import BootstrapButton from "react-bootstrap/Button";
+import axios from "axios";
 import "./module.add.css";
 import { ref, uploadBytes } from "firebase/storage";
 import { storage, db, auth } from "../../firebase";
@@ -15,6 +16,7 @@ import { ref as refdb, set } from "firebase/database";
 
 import { useNavigate } from "react-router-dom";
 function Add(props) {
+  const [uploadMethod, setUploadMethod] = useState("");
   const navigate = useNavigate();
   if(auth.currentUser===null){
     navigate("/login");
@@ -253,11 +255,18 @@ function Add(props) {
       });
     });
   }
-
+  const Convertfromlink = async ()=>{
+    axios.get('http://127.0.0.1:5000/convert',{
+      params:{url:link,userid: auth.currentUser.uid!==null?auth.currentUser.uid:"guest"}
+    }).then((res)=>{
+      console.log(res.data);
+    })
+  }
   const handleChange = (event) => {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
     // console.log(url);
+    setUploadMethod("file-upload");
     setVideoSRC(url);
     setVideoSource("file-upload");
     console.log(videoSRC);
@@ -272,7 +281,13 @@ function Add(props) {
       convertToAudio(file);
     }
   };
-
+  const ConvertClick = (event) => {
+    if(uploadMethod==='file-upload'){
+      handleClick(event);
+    }else if(uploadMethod==='link'){
+      Convertfromlink();
+    }
+  }
   return (
     <div style={{ position: "relative" }}>
       <div>
@@ -369,7 +384,7 @@ function Add(props) {
                     https://
                   </InputGroup.Text>
                   <Form.Control
-                    disabled={videoSRC !== null}
+                    disabled={videoSRC !== ""}
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     onChange={(e) => {
@@ -384,7 +399,7 @@ function Add(props) {
                     }}
                   />
                   <BootstrapButton
-                    disabled={videoSRC !== null}
+                    disabled={videoSRC !== ""}
                     variant={props.theme === "light" ? "primary" : "dark"}
                     style={{
                       borderColor:
@@ -392,7 +407,9 @@ function Add(props) {
                     }}
                     id="button-addon2"
                     onClick={() => {
+                      setUploadMethod("link");
                       setLink(link);
+                      setVideoSRC(link);
                     }}
                   >
                     Ok
@@ -411,7 +428,7 @@ function Add(props) {
                   style={{
                     color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
                   }}
-                  onClick={handleClick}
+                  onClick={ConvertClick}
                 >
                   Convert
                 </Button>
