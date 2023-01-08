@@ -39,13 +39,13 @@ function EditAudio(props) {
     const audioTag = document.getElementById(videoSrc);
     const currentTime = audioTag.currentTime;
     const totalTime = audioTag.duration;
+
     let distance = (currentTime / totalTime) * 303;
-    // console.log(distance - 265);
-    // distance = distance - 135;
     const commentsDiv = document.getElementById("commentsDiv");
     const div = document.createElement("div");
+    div.id = currentTime;
     div.classList = "h-1 w-1 bg-white";
-    div.style = `margin-left: ${distance}px;
+    div.style = `margin-left: ${distance}%;
     position: absolute;
     `;
     commentsDiv.appendChild(div);
@@ -75,6 +75,9 @@ function EditAudio(props) {
   const handleOnClick = () => {
     comments.set(Math.floor(audioRef.current.currentTime), comment);
     if(comment===""){
+      if(document.getElementById(Math.floor(audioRef.current.currentTime))){
+        document.getElementById(Math.floor(audioRef.current.currentTime)).remove();
+      }
       comments.delete(Math.floor(audioRef.current.currentTime));
     }
     setComment("");
@@ -225,6 +228,9 @@ function EditAudio(props) {
               </Button>{" "}
               </div>
             <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleSaving}>Save And Exit</Button>{' '}
+            <div>
+              
+            </div>
             </div>
             <div>
               {/* <Upload
@@ -286,9 +292,6 @@ function EditAudio(props) {
                 ></div>
               </section>
             </div>
-          </div>
-          <div id="commentList">
-            
           </div>
         </div>
       </div>
