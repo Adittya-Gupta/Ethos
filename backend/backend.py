@@ -38,8 +38,8 @@ def convert():
     # wav_audio.export("audio.mp3", format="mp3")
     # print(filename)
     # filename = 'audio.mp3'
-    # blob = bucket.blob(user+'/'+filename+'.mp3')
-    blob = bucket.blob()
+    blob = bucket.blob(user+'/'+filename+'.mp3')
+
     print(blob)
     blob.upload_from_filename(filename+'.mp3')
     blob.make_public()

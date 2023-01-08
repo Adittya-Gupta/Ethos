@@ -261,7 +261,8 @@ function Add(props) {
     }).then((res)=>{
       let name= new Date((new Date().toISOString())).toLocaleString()
       name=name.replace("/","-")
-       
+      name=name.replace("/","-")
+      console.log(name)
       console.log(res.data);
       set(
         refdb(
