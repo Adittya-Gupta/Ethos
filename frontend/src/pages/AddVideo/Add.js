@@ -251,7 +251,7 @@ function Add(props) {
           commentList: [],
         }
       ).then(() => {
-        navigate("/editaudio", { state: { name: convertedAudioDataObj.name } });
+        navigate("/editaudio", { state: { name: convertedAudioDataObj.name, id: convertedAudioDataObj.name } });
       });
     });
   }
@@ -283,7 +283,7 @@ function Add(props) {
           commentList: [],
         }
       ).then(() => {
-        navigate("/editaudio", { state: { name: "createdOn" + name} });
+        navigate("/editaudio", { state: { name: "createdOn" + name, id: "createdOn" + name} });
       });
     })
   }
