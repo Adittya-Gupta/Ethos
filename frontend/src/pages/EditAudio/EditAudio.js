@@ -15,7 +15,6 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { ref as dbref, query, onValue } from "firebase/database";
 import { update } from "firebase/database";
 import { useNavigate, useLocation } from "react-router-dom";
-import CommentCard from "../../components/CommentCard";
 
 function EditAudio(props) {
   const navigate = useNavigate();
