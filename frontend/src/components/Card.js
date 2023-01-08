@@ -3,7 +3,7 @@ import {ref as dbref, remove} from 'firebase/database'
 import { useNavigate } from 'react-router-dom';
 import {auth, db} from '../firebase'
 function Card(props){
-    const navigate=useNavigate
+    const navigate=useNavigate();
     const backcolor = props.theme==="light" ? "#8BB3DD" : "#2C1E38"
     const tcolor = props.theme==="light" ? "#13458C" : "#AC6086"
     const t2color = props.theme==="light" ? "#D9D9D9" : "#F2D1DB"
