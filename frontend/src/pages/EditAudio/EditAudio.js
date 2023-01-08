@@ -1,8 +1,8 @@
 import Navbar from "../../components/NavBar";
 import AnimatedDark from "../../components/AnimatedDark";
 import AnimatedLight from "../../components/AnimatedLight";
-import { Upload, Button } from "antd";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { Button } from "antd";
+// import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useRef } from "react";
@@ -10,7 +10,13 @@ import "../../components/AudioPlayer/Spectrum.css";
 import "../../components/AudioPlayer/Player.css";
 import { Spectrum } from "../../components/AudioPlayer/Spectrum";
 import { useEffect} from "react";
+import { storage,db, auth } from "../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
+import { ref as dbref,query,onValue } from "firebase/database";
+import { useLocation } from "react-router-dom";
 function EditAudio(props) {
+  const location = useLocation();
+  const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + location.state.name))
   const audioRef = useRef();  
   const [videoSrc, seVideoSrc] = useState("");
   const titleColor = props.theme === "light" ? "#13458C" : "#AC6086";
@@ -18,11 +24,20 @@ function EditAudio(props) {
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
   const [comment,setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
-  const handleChange = ({ file }) => {
-    console.log(file);
-    var url = URL.createObjectURL(file.originFileObj);
-    seVideoSrc(url);
-  };
+  onValue(query(mydbref), snapshot => {
+    getDownloadURL(ref(storage, snapshot.val().dataURL)).then((url) => {
+      seVideoSrc(url);
+  })
+  // mydbref.on('value', (snapshot) => {
+  //   console.log(snapshot.val());
+  //   
+  //   // });
+  })
+  // const handleChange = ({ file }) => {
+  //   console.log(file);
+  //   var url = URL.createObjectURL(file.originFileObj);
+  //   seVideoSrc(url);
+  // };
   const [comments, ] = useState(new Map());
   const handleOnClick = () => {
     comments.set(Math.floor(audioRef.current.currentTime),comment);
@@ -90,7 +105,7 @@ function EditAudio(props) {
               width: "100%",
             }}
           />
-          <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "row", width: "100%",justifyContent:"space-between" }}>
             <div style={{ width: "60%", margin:"2rem" }}>
               <Form.Group
                 className="mb-3"
@@ -101,8 +116,9 @@ function EditAudio(props) {
               </Form.Group>
               <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
             </div>
+            <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
             <div>
-              <Upload
+              {/* <Upload
                 disabled={videoSrc !== ""}
                 className="mt-3 mb-3"
                 accept=".mp3"
@@ -119,8 +135,8 @@ function EditAudio(props) {
                 >
                   <FileUploadIcon></FileUploadIcon>
                 </Button>
-              </Upload>
-              <Spectrum audioUrl={videoSrc} />
+              </Upload> */}
+              <Spectrum audioUrl={videoSrc} theme = {props.theme} />
       <section className="Player">
         <style>
             {
