@@ -497,6 +497,7 @@ function Add(props) {
               />
             </div>
           </div>}
+          {loading===true && <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Extracting audio from your video:</div>}
           {loading===true && <div style={{ display: "flex", flexDirection: "column", width: "100%",alignItems:"center" }}>
                 <div> <CircularProgress style={{color:headingColor}} size={100}/> </div>
           </div>}
