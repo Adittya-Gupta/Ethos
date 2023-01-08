@@ -13,11 +13,11 @@ function Card(props){
         if(!e.target.classList.contains("MuiSvgIcon-root")){
             // This if condition is to prevent the click event from being triggered when the delete button is clicked
             console.log("edit button was clicked")
-            navigate("/editaudio", { state: { name: props.title } });
+            navigate("/editaudio", { state: { id: props.id, name:props.name } });
         }
     }
     const handleDelete = () => {
-        const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + props.title))
+        const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + props.id))
         remove(mydbref)
     }
     return(

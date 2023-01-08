@@ -27,7 +27,8 @@ function Dashboard(props){
             for (const [key, value] of Object.entries(snapshot.val())) {
                 console.log(key, value)
                 mycards.push({
-                    title: key,
+                    id: key,
+                    title: value.name,
                     createdOn: value.createdOn,
                     lastModified: value.lastModified,
                     duration: value.duration,
@@ -73,7 +74,7 @@ function Dashboard(props){
           <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Here are your recent audios :</div>
           {
                 cards.map((card)=>{
-                    return <Card theme={props.theme} title={card.title} createdOn={card.createdOn} lastModified={card.lastModified} duration={card.duration} comments={card.comments}></Card>
+                    return <Card id={card.id} theme={props.theme} title={card.title} createdOn={card.createdOn} lastModified={card.lastModified} duration={card.duration} comments={card.comments}></Card>
                 })
           }
           

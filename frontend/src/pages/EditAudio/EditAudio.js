@@ -25,7 +25,7 @@ function EditAudio(props) {
     "users/" +
       (auth.currentUser ? auth.currentUser.uid : "user") +
       "/" +
-      location.state.name
+      location.state.id
   );
   const audioRef = useRef();
   const [videoSrc, seVideoSrc] = useState("");
@@ -34,7 +34,7 @@ function EditAudio(props) {
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
   const [comment, setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
-
+  const [namechange, setName] = useState(location.state.name);
   const [data, setData] = useState({});
   const addMarker = () => {
     const audioTag = document.getElementById(videoSrc);
@@ -88,13 +88,13 @@ function EditAudio(props) {
       commentsNumber: comments.size,
       createdOn: data.createdOn,
       format: data.format,
-      name: data.name,
+      name: namechange,
       dataURL: data.dataURL,
       lastModified: new Date().toISOString(),
       commentList: uploadcomm,
     }
     const updates = {};
-    updates['/users/' + (auth.currentUser ? auth.currentUser.uid : "user") + '/' + location.state.name] = postData;
+    updates['/users/' + (auth.currentUser ? auth.currentUser.uid : "user") + '/' + location.state.id] = postData;
     update(dbref(db), updates).then(()=>{
       navigate("/dashboard");
     })
@@ -167,7 +167,28 @@ function EditAudio(props) {
               justifyContent: "space-between",
             }}
           >
-            <div style={{ width: "60%", margin: "2rem" }}>
+            <div style={{ width: "60%", margin: "2rem", display:"flex", flexDirection:"column", gap:"3rem" }}>
+              <div>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea2"
+              >
+                <Form.Label
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: "600",
+                    color: titleColor,
+                  }}
+                >
+                  Change Title
+                </Form.Label>
+                <Form.Control
+                  as="input"
+                  style={{ backgroundColor: backColor, color: tcolor }}
+                  value={namechange}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Group>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
@@ -199,10 +220,11 @@ function EditAudio(props) {
                 style={{ color: "whitesmoke" }}
                 onClick={handleOnClick}
               >
-                Save
+                Save comment here
               </Button>{" "}
+              </div>
+            <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleSaving}>Save And Exit</Button>{' '}
             </div>
-            <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleSaving}>Save</Button>{' '}
             <div>
               {/* <Upload
                 disabled={videoSrc !== ""}
