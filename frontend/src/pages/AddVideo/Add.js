@@ -259,7 +259,31 @@ function Add(props) {
     axios.get('http://127.0.0.1:5000/convert',{
       params:{url:link,userid: auth.currentUser.uid!==null?auth.currentUser.uid:"guest"}
     }).then((res)=>{
+      let name= new Date((new Date().toISOString())).toLocaleString()
+      name=name.replace("/","-")
+       
       console.log(res.data);
+      set(
+        refdb(
+          db,
+          "users/" + 
+          (auth.currentUser ? auth.currentUser.uid : "user") +
+          "/" +
+          "createdOn" + name +
+            "/"
+        ),
+        {
+          name: "createdOn" + name,
+          format: "mp3",
+          dataURL: res.data,
+          createdOn: new Date().toISOString(),
+          lastModified: new Date().toISOString(),
+          commentsNumber: 0,
+          commentList: [],
+        }
+      ).then(() => {
+        navigate("/editaudio", { state: { name: "createdOn" + name} });
+      });
     })
   }
   const handleChange = (event) => {
