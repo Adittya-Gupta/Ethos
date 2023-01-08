@@ -386,7 +386,7 @@ function Add(props) {
                   type="file"
                   onChange={handleChange}
                   id="file-upload"
-                  disabled={videoSRC !== ""}
+                  // disabled={videoSRC !== ""}
                   className="p-4"
                   accept=".mp4"
                   // showUploadList={false}
@@ -409,7 +409,7 @@ function Add(props) {
                     https://
                   </InputGroup.Text>
                   <Form.Control
-                    disabled={videoSRC !== ""}
+                    // disabled={videoSRC !== ""}
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     onChange={(e) => {
@@ -424,7 +424,7 @@ function Add(props) {
                     }}
                   />
                   <BootstrapButton
-                    disabled={videoSRC !== ""}
+                    // disabled={videoSRC !== ""}
                     variant={props.theme === "light" ? "primary" : "dark"}
                     style={{
                       borderColor:
