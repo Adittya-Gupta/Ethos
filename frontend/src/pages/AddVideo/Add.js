@@ -13,9 +13,10 @@ import "./module.add.css";
 import { ref, uploadBytes } from "firebase/storage";
 import { storage, db, auth } from "../../firebase";
 import { ref as refdb, set } from "firebase/database";
-
+import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 function Add(props) {
+  const [loading, setLoading] = useState(false);
   const [uploadMethod, setUploadMethod] = useState("");
   const navigate = useNavigate();
   if(auth.currentUser===null){
@@ -307,6 +308,7 @@ function Add(props) {
     }
   };
   const ConvertClick = (event) => {
+    setLoading(true);
     if(uploadMethod==='file-upload'){
       handleClick(event);
     }else if(uploadMethod==='link'){
@@ -333,6 +335,7 @@ function Add(props) {
             props.theme === "light" ? "blurred-div" : "blurred-div-dark"
           }
         >
+          {loading===false &&
           <div
             style={{
               color: props.theme === "light" ? "#BCD5EB" : "#F2D1DB",
@@ -341,7 +344,17 @@ function Add(props) {
             }}
           >
             Let's see the video first,
-          </div>
+          </div> }
+          {loading===true &&
+          <div
+            style={{
+              color: props.theme === "light" ? "#BCD5EB" : "#F2D1DB",
+              fontWeight: 600,
+              fontSize: "44px",
+            }}
+          >
+            Loading ...
+          </div> }
           <hr
             style={{
               color: props.theme === "light" ? "#BCD5EB" : "#AC6086",
@@ -350,7 +363,7 @@ function Add(props) {
               width: "100%",
             }}
           />
-          <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+          {loading===false && <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
             <div style={{ width: "40%", margin: "2rem" }}>
               <div
                 style={{
@@ -483,7 +496,10 @@ function Add(props) {
                 url={videoSRC}
               />
             </div>
-          </div>
+          </div>}
+          {loading===true && <div style={{ display: "flex", flexDirection: "column", width: "100%",alignItems:"center" }}>
+                <div> <CircularProgress style={{color:headingColor}} size={100}/> </div>
+          </div>}
         </div>
       </div>
     </div>
