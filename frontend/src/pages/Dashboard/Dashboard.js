@@ -5,7 +5,7 @@ import Card from "../../components/Card"
 import AddIcon from '@mui/icons-material/Add';
 import "./Dashboard.css"
 import {auth, db} from "../../firebase.js"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ref as dbref,query,onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
 function Dashboard(props){
