@@ -3,7 +3,7 @@ import AnimatedDark from "../../components/AnimatedDark";
 import Navbar from "../../components/NavBar";
 import ReactPlayer from "react-player";
 import { Button } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -11,8 +11,18 @@ import BootstrapButton from "react-bootstrap/Button";
 import "./module.add.css";
 import { ref, uploadBytes } from "firebase/storage";
 import { storage, db, auth } from "../../firebase";
-import { ref as refdb, set} from "firebase/database";
+import { ref as refdb, set } from "firebase/database";
+
 function Add(props) {
+  const videoBackground = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
+  const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
+  const uploadButtonColor = props.theme === "light" ? "#3B76CB" : "#2C1E38";
+  const iconColor = props.theme === "light" ? "#FFFFFF" : "#F2D1DB";
+  const [videoURL, setVideoURL] = useState("");
+  const [abc, setAbc] = useState("");
+  const [link, setLink] = useState("");
+  let temp = 0;
+
   const convert = (videoFileData, targetAudioFormat) => {
     try {
       targetAudioFormat = targetAudioFormat.toLowerCase();
@@ -209,35 +219,57 @@ function Add(props) {
       storage,
       `${convertedAudioDataObj.name}.${convertedAudioDataObj.format}`
     );
-    uploadBytes(storageRef, audioFile)
-      .then((snapshot) => {
-        console.log("Uploaded a blob or file!");
-        console.log(snapshot)
-        console.log(snapshot.ref._location.path)
-        set(refdb(db, 'users/'+(auth.currentUser ? auth.currentUser.uid : "user")+'/'+convertedAudioDataObj.name+'/'),{
+    uploadBytes(storageRef, audioFile).then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+      console.log(snapshot);
+      console.log(snapshot.ref._location.path);
+      set(
+        refdb(
+          db,
+          "users/" +
+            (auth.currentUser ? auth.currentUser.uid : "user") +
+            "/" +
+            convertedAudioDataObj.name +
+            "/"
+        ),
+        {
           name: convertedAudioDataObj.name,
           format: convertedAudioDataObj.format,
           dataURL: snapshot.ref._location.path,
           createdOn: new Date().toISOString(),
           lastModified: new Date().toISOString(),
           commentsNumber: 0,
-          commentList: [],  
-        })
-      })}
-  const videoBackground = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
-  const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
-  const uploadButtonColor = props.theme === "light" ? "#3B76CB" : "#2C1E38";
-  const iconColor = props.theme === "light" ? "#FFFFFF" : "#F2D1DB";
-  const [videoSrc, setVideoSrc] = useState("");
-  const [link, setLink] = useState("");
-  const handleChange = async (event) => {
+          commentList: [],
+        }
+      );
+    });
+  }
+  function handleChange(event) {
     const file = event.target.files[0];
     console.log(file);
-    const url = URL.createObjectURL(event.target.files[0]);
+    const url = URL.createObjectURL(file);
     console.log(url);
-    setVideoSrc(url);
-    await convertToAudio(file);
+    setVideoURL(url);
+    console.log(videoURL);
+    const xy = setAbc(URL.createObjectURL(event.target.files[0]));
+    console.log(abc);
+    console.log(xy);
+    temp++;
+    console.log(temp);
+    plzSetHoJa(url);
+    // convertToAudio(file);
+  }
+
+  // useEffect(()=>{
+  //   setAbc()
+  // })
+
+  const plzSetHoJa = (url) => {
+    console.log(url);
+    setAbc(url);
+    console.log(abc);
   };
+
   return (
     <div style={{ position: "relative" }}>
       <div>
@@ -287,7 +319,7 @@ function Add(props) {
                 }}
               >
                 {/* <Upload
-                  disabled={videoSrc !== ""}
+                  disabled={videoURL !== null}
                   className="mt-3 mb-3"
                   accept=".mp4"
                   showUploadList={false}
@@ -310,16 +342,14 @@ function Add(props) {
                 <input
                   type="file"
                   id="file-upload"
-                  disabled={videoSrc !== ""}
+                  // disabled={videoURL !== null}
                   className="p-4"
                   accept=".mp4"
                   // showUploadList={false}
                   style={{
                     backgroundColor: uploadButtonColor,
                   }}
-                  onChange={(event) => {
-                    handleChange(event);
-                  }}
+                  onChange={handleChange}
                 />
                 {/* </Upload> */}
 
@@ -336,7 +366,7 @@ function Add(props) {
                     https://
                   </InputGroup.Text>
                   <Form.Control
-                    disabled={videoSrc !== ""}
+                    // disabled={videoURL !== null}
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     onChange={(e) => {
@@ -350,7 +380,7 @@ function Add(props) {
                     }}
                   />
                   <BootstrapButton
-                    disabled={videoSrc !== ""}
+                    // disabled={videoURL !== null}
                     variant={props.theme === "light" ? "primary" : "dark"}
                     style={{
                       borderColor:
@@ -358,7 +388,7 @@ function Add(props) {
                     }}
                     id="button-addon2"
                     onClick={() => {
-                      setVideoSrc(link);
+                      setLink(link);
                     }}
                   >
                     Ok
@@ -373,7 +403,7 @@ function Add(props) {
                 }}
               >
                 <Button
-                  disabled={videoSrc === ""}
+                  // disabled={videoURL === null}
                   style={{
                     color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
                   }}
@@ -395,15 +425,16 @@ function Add(props) {
                 You Can See the uploded video here...
               </h1>
               <ReactPlayer
-                url={videoSrc}
+                url={abc}
+                id="reactplayer"
                 style={{
                   marginTop: "1rem",
                   padding: "2rem",
                   backgroundColor: videoBackground,
                   borderRadius: "16px",
                 }}
-                controls
-              ></ReactPlayer>
+                controls={true}
+              />
             </div>
           </div>
         </div>
