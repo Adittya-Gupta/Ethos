@@ -10,11 +10,10 @@ import { ref as dbref,query,onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
 function Dashboard(props){
     const navigate = useNavigate();
-    useEffect(()=>{
-        if(auth.currentUser==null){
-            navigate("/login")
-        }
-    })
+    if(auth.currentUser===null){
+        navigate("/login")
+    }
+    // const [username, ] = useState(auth.currentUser.displayName)
     const plusbackground = props.theme==="light" ? "#3B76CB" : "#2C1E38"
     const pluscolor = props.theme==="light" ? "#BCD5EB" : "#F2D1DB"
     console.log(props.theme)
@@ -56,7 +55,7 @@ function Dashboard(props){
     return(
         <div style={{position:"relative"}}>
             <div>
-                <Navbar name={props.name} theme={props.theme} onSwitch={props.onSwitch}></Navbar>
+                <Navbar name={auth.currentUser ? auth.currentUser.displayName : "USer"} theme={props.theme} onSwitch={props.onSwitch}></Navbar>
             </div>
             <div>
                 {props.theme==="light" ? <AnimatedLight></AnimatedLight> : <AnimatedDark></AnimatedDark>}
