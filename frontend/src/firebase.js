@@ -12,6 +12,7 @@ import {
   fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { getDatabase} from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,6 +24,7 @@ const firebaseConfig = {
   storageBucket: "ethos-website-98c85.appspot.com",
   messagingSenderId: "458849843741",
   appId: "1:458849843741:web:84805fb05fe2dded6ea4f4",
+  databaseURL: "https://ethos-website-98c85-default-rtdb.firebaseio.com/"
 };
 
 // Initialize Firebase
@@ -121,3 +123,4 @@ export const resetPassword = (email) => {
 };
 
 export const storage = getStorage();
+export const db = getDatabase();

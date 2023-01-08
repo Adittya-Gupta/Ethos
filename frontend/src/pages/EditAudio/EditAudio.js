@@ -1,8 +1,8 @@
 import Navbar from "../../components/NavBar";
 import AnimatedDark from "../../components/AnimatedDark";
 import AnimatedLight from "../../components/AnimatedLight";
-import { Upload, Button } from "antd";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { Button } from "antd";
+// import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useRef } from "react";
@@ -10,6 +10,8 @@ import "../../components/AudioPlayer/Spectrum.css";
 import "../../components/AudioPlayer/Player.css";
 import { Spectrum } from "../../components/AudioPlayer/Spectrum";
 import { useEffect} from "react";
+import { storage } from "../../firebase";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 function EditAudio(props) {
   const audioRef = useRef();  
   const [videoSrc, seVideoSrc] = useState("");
@@ -18,11 +20,14 @@ function EditAudio(props) {
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
   const [comment,setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
-  const handleChange = ({ file }) => {
-    console.log(file);
-    var url = URL.createObjectURL(file.originFileObj);
+  getDownloadURL(ref(storage, "file_example_MP4_480_1_5MG.mp3")).then((url) => {
     seVideoSrc(url);
-  };
+  });
+  // const handleChange = ({ file }) => {
+  //   console.log(file);
+  //   var url = URL.createObjectURL(file.originFileObj);
+  //   seVideoSrc(url);
+  // };
   const [comments, ] = useState(new Map());
   const handleOnClick = () => {
     comments.set(Math.floor(audioRef.current.currentTime),comment);
@@ -103,7 +108,7 @@ function EditAudio(props) {
             </div>
             <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
             <div>
-              <Upload
+              {/* <Upload
                 disabled={videoSrc !== ""}
                 className="mt-3 mb-3"
                 accept=".mp3"
@@ -120,7 +125,7 @@ function EditAudio(props) {
                 >
                   <FileUploadIcon></FileUploadIcon>
                 </Button>
-              </Upload>
+              </Upload> */}
               <Spectrum audioUrl={videoSrc} theme = {props.theme} />
       <section className="Player">
         <style>

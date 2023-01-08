@@ -10,8 +10,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import BootstrapButton from "react-bootstrap/Button";
 import "./module.add.css";
 import { ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../firebase";
-
+import { storage, db, auth } from "../../firebase";
+import { ref as refdb, set} from "firebase/database";
 function Add(props) {
   const convert = (videoFileData, targetAudioFormat) => {
     try {
@@ -212,10 +212,18 @@ function Add(props) {
     uploadBytes(storageRef, audioFile)
       .then((snapshot) => {
         console.log("Uploaded a blob or file!");
-      })
-      .catch((err) => console.log(err.message));
-  }
-
+        console.log(snapshot)
+        console.log(snapshot.ref._location.path)
+        set(refdb(db, 'users/'+(auth.currentUser ? auth.currentUser.uid : "user")+'/'+convertedAudioDataObj.name+'/'),{
+          name: convertedAudioDataObj.name,
+          format: convertedAudioDataObj.format,
+          dataURL: snapshot.ref._location.path,
+          createdOn: new Date().toISOString(),
+          lastModified: new Date().toISOString(),
+          commentsNumber: 0,
+          commentList: [],  
+        })
+      })}
   const videoBackground = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
   const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
   const uploadButtonColor = props.theme === "light" ? "#3B76CB" : "#2C1E38";
@@ -228,7 +236,7 @@ function Add(props) {
     const url = URL.createObjectURL(event.target.files[0]);
     console.log(url);
     setVideoSrc(url);
-    // await convertToAudio(file);
+    await convertToAudio(file);
   };
   return (
     <div style={{ position: "relative" }}>
