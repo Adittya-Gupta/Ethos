@@ -55,9 +55,9 @@ function EditAudio(props) {
     getDownloadURL(ref(storage, snapshot.val().dataURL)).then((url) => {
       setData(snapshot.val());
       if(snapshot.val().commentList){
-        snapshot.val().commentList.forEach((value)=>{
-          comments.set(value.time,value.comment);
-        })
+        for (const [key, value] of Object.entries(snapshot.val().commentList)) {
+          comments.set(parseInt(key), value);
+        }
       }
       seVideoSrc(url);
     });
@@ -74,7 +74,9 @@ function EditAudio(props) {
   const [comments] = useState(new Map());
   const handleOnClick = () => {
     comments.set(Math.floor(audioRef.current.currentTime), comment);
-    console.log(comments);
+    if(comment===""){
+      comments.delete(Math.floor(audioRef.current.currentTime));
+    }
     setComment("");
     addMarker();
   };
