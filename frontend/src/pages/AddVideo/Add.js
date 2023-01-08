@@ -12,7 +12,9 @@ import "./module.add.css";
 import { ref, uploadBytes } from "firebase/storage";
 import { storage, db, auth } from "../../firebase";
 import { ref as refdb, set} from "firebase/database";
+import { useNavigate } from "react-router-dom";
 function Add(props) {
+  const navigate = useNavigate();
   const convert = (videoFileData, targetAudioFormat) => {
     try {
       targetAudioFormat = targetAudioFormat.toLowerCase();
@@ -207,7 +209,7 @@ function Add(props) {
     const audioFile = new File([audioBlob], "audio.mp3", { type: "audio/mp3" });
     const storageRef = ref(
       storage,
-      `${convertedAudioDataObj.name}.${convertedAudioDataObj.format}`
+      `${(auth.currentUser ? auth.currentUser.uid : "user")+':'+convertedAudioDataObj.name}.${convertedAudioDataObj.format}`
     );
     uploadBytes(storageRef, audioFile)
       .then((snapshot) => {
@@ -222,6 +224,8 @@ function Add(props) {
           lastModified: new Date().toISOString(),
           commentsNumber: 0,
           commentList: [],  
+        }).then(()=>{
+          navigate('/editaudio', {state: {name: convertedAudioDataObj.name}})
         })
       })}
   const videoBackground = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
