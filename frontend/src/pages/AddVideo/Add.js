@@ -3,7 +3,7 @@ import AnimatedDark from "../../components/AnimatedDark";
 import Navbar from "../../components/NavBar";
 import ReactPlayer from "react-player";
 import { Button } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -19,11 +19,8 @@ function Add(props) {
   const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
   const uploadButtonColor = props.theme === "light" ? "#3B76CB" : "#2C1E38";
   const iconColor = props.theme === "light" ? "#FFFFFF" : "#F2D1DB";
-  const [videoURL, setVideoURL] = useState("");
-  const [abc, setAbc] = useState("");
+  const [videoSrc, seVideoSrc] = useState("");
   const [link, setLink] = useState("");
-  let temp = 0;
-
   const navigate = useNavigate();
   const convert = (videoFileData, targetAudioFormat) => {
     try {
@@ -247,31 +244,21 @@ function Add(props) {
         })
       })}
   
-  const handleChange = async (event) => {
+  const handleChange = (event) => {
     const file = event.target.files[0];
     console.log(file);
     const url = URL.createObjectURL(file);
     console.log(url);
-    setVideoURL(url);
-    console.log(videoURL);
-    const xy = setAbc(URL.createObjectURL(event.target.files[0]));
-    console.log(abc);
-    console.log(xy);
-    temp++;
-    console.log(temp);
-    plzSetHoJa(url);
-    // convertToAudio(file);
+    seVideoSrc(url);
+    console.log(videoSrc);
+    convertToAudio(file);
   }
 
   // useEffect(()=>{
-  //   setAbc()
-  // })
+  //   setAbc(videoSrc)
+  //   console.log(abc)
+  // },[videoSrc,abc])
 
-  const plzSetHoJa = (url) => {
-    console.log(url);
-    setAbc(url);
-    console.log(abc);
-  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -352,7 +339,7 @@ function Add(props) {
                   style={{
                     backgroundColor: uploadButtonColor,
                   }}
-                  onChange={handleChange}
+                  onChange={(event)=>handleChange(event)}
                 />
                 {/* </Upload> */}
 
@@ -369,7 +356,7 @@ function Add(props) {
                     https://
                   </InputGroup.Text>
                   <Form.Control
-                    // disabled={videoURL !== null}
+                    disabled={videoSrc !== null}
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     onChange={(e) => {
@@ -383,7 +370,7 @@ function Add(props) {
                     }}
                   />
                   <BootstrapButton
-                    // disabled={videoURL !== null}
+                    disabled={videoSrc !== null}
                     variant={props.theme === "light" ? "primary" : "dark"}
                     style={{
                       borderColor:
@@ -406,7 +393,7 @@ function Add(props) {
                 }}
               >
                 <Button
-                  // disabled={videoURL === null}
+                  disabled={videoSrc === null}
                   style={{
                     color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
                   }}
@@ -428,7 +415,6 @@ function Add(props) {
                 You Can See the uploded video here...
               </h1>
               <ReactPlayer
-                url={abc}
                 id="reactplayer"
                 style={{
                   marginTop: "1rem",
@@ -437,6 +423,7 @@ function Add(props) {
                   borderRadius: "16px",
                 }}
                 controls={true}
+                url={videoSrc}
               />
             </div>
           </div>
