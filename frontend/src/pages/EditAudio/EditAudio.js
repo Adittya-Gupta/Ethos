@@ -13,8 +13,10 @@ import { useEffect} from "react";
 import { storage,db, auth } from "../../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
 import { ref as dbref,query,onValue } from "firebase/database";
-import { useLocation } from "react-router-dom";
+import { update } from "firebase/database";
+import { useNavigate, useLocation } from "react-router-dom";
 function EditAudio(props) {
+  const navigate = useNavigate();
   const location = useLocation();
   const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + location.state.name))
   const audioRef = useRef();  
@@ -24,8 +26,15 @@ function EditAudio(props) {
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
   const [comment,setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
+  const [data, setData] = useState({});
   onValue(query(mydbref), snapshot => {
     getDownloadURL(ref(storage, snapshot.val().dataURL)).then((url) => {
+      setData(snapshot.val());
+      if(snapshot.val().commentList){
+        snapshot.val().commentList.forEach((value)=>{
+          comments.set(value.time,value.comment);
+        })
+      }
       seVideoSrc(url);
   })
   // mydbref.on('value', (snapshot) => {
@@ -44,6 +53,26 @@ function EditAudio(props) {
     console.log(comments);
     setComment("");
   };
+  const handleSaving = ()=>{
+    let uploadcomm = {};
+    comments.forEach((value,key)=>{
+      uploadcomm[key] = value;
+    })
+    const postData = {
+      commentsNumber: comments.size,
+      createdOn: data.createdOn,
+      format: data.format,
+      name: data.name,
+      dataURL: data.dataURL,
+      lastModified: new Date().toISOString(),
+      commentList: uploadcomm,
+    }
+    const updates = {};
+    updates['/users/' + (auth.currentUser ? auth.currentUser.uid : "user") + '/' + location.state.name] = postData;
+    update(dbref(db), updates).then(()=>{
+      navigate("/dashboard");
+    })
+  }
   let last = useRef(-1);
   // update the comment variable when the time changes
     useEffect(() => {
@@ -116,7 +145,7 @@ function EditAudio(props) {
               </Form.Group>
               <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
             </div>
-            <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
+            <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleSaving}>Save</Button>{' '}
             <div>
               {/* <Upload
                 disabled={videoSrc !== ""}

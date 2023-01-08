@@ -5,10 +5,13 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 import {FcGoogle} from "@react-icons/all-files/fc/FcGoogle";
-import {signInWithGoogle, signIn, resetPassword} from "../../firebase.js";
+import {signInWithGoogle, signIn, resetPassword, auth} from "../../firebase.js";
 import { useState } from "react";
 function Login(props) {
   const navigate = useNavigate();
+  if(auth.currentUser){
+    navigate('/dashboard');
+  }
   const theme = props.theme
   const [email,setEmail]=useState("");
   const [passwd,setPasswd]=useState("");

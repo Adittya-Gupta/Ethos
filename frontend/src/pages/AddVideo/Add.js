@@ -15,6 +15,10 @@ import { ref as refdb, set } from "firebase/database";
 
 import { useNavigate } from "react-router-dom";
 function Add(props) {
+  const navigate = useNavigate();
+  if(auth.currentUser===null){
+    navigate("/login");
+  }
   const videoBackground = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
   const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
   const uploadButtonColor = props.theme === "light" ? "#3B76CB" : "#2C1E38";

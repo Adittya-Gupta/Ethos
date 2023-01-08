@@ -27,11 +27,11 @@ function Card(props){
             </div>
         <div style={{width:"1.5px",height:"100%",backgroundColor:linecolor}}></div>
         <div style={{display:"flex",flexDirection:"column",height:"100%",justifyContent:"flex-end",gap:"0.2rem",padding:"0.5rem"}}>
-                 <div style={{color:t2color,fontWeight:500}}> <span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Created on :</span> {props.createdOn}</div>
-                 <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Last Modified :</span> {props.lastModified}</div>
+                 <div style={{color:t2color,fontWeight:500}}> <span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Created on :</span> {(new Date((props.createdOn)).toLocaleString())}</div>
+                 <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Last Modified :</span> {(new Date((props.lastModified)).toLocaleString())}</div>
                  <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Comments :</span> {props.comments}</div>
         </div>
-        <div style={{position:"absolute",right:"10px",bottom:"10px",cursor:"pointer"}} onClick={handleDelete} className="delete-button-dashboard">
+        <div style={{position:"absolute",right:"10px",bottom:"10px",cursor:"pointer",border:"2px solid",borderRadius:"100%",padding:"0.5rem",borderColor:linecolor}} onClick={handleDelete} className="delete-button-dashboard">
             <DeleteOutlinedIcon sx={{color : deleteColor}}></DeleteOutlinedIcon>
         </div>
         </div>
