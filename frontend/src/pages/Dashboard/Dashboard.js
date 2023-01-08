@@ -14,8 +14,8 @@ function Dashboard(props){
         navigate("/login")
     }
     // const [username, ] = useState(auth.currentUser.displayName)
-    const plusbackground = props.theme==="light" ? "#3B76CB" : "#2C1E38"
-    const pluscolor = props.theme==="light" ? "#BCD5EB" : "#F2D1DB"
+    const plusbackground = props.theme==="light" ? "#13458C" : "#F2D1DB"
+    const pluscolor = props.theme==="light" ? "#8BB3DD" : "#2C1E38"
     console.log(props.theme)
     const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user")))
     // update cards list when the database changes due to the deletion of a card
