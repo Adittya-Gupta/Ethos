@@ -12,11 +12,17 @@ import { Spectrum } from "../../components/AudioPlayer/Spectrum";
 import { useEffect } from "react";
 import { storage, db, auth } from "../../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
+<<<<<<< HEAD
 import { ref as dbref, query, onValue } from "firebase/database";
 import { update } from "firebase/database";
 import { useNavigate, useLocation } from "react-router-dom";
 import CommentCard from "../../components/CommentCard";
 
+=======
+import { ref as dbref,query,onValue } from "firebase/database";
+import { update } from "firebase/database";
+import { useNavigate, useLocation } from "react-router-dom";
+>>>>>>> 20f928ae83f8e4ecaf24ec8eeea4a3fe821e12c2
 function EditAudio(props) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,6 +40,7 @@ function EditAudio(props) {
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
   const [comment, setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
+<<<<<<< HEAD
 
   const [data, setData] = useState({});
   const addMarker = () => {
@@ -53,6 +60,10 @@ function EditAudio(props) {
   };
 
   onValue(query(mydbref), (snapshot) => {
+=======
+  const [data, setData] = useState({});
+  onValue(query(mydbref), snapshot => {
+>>>>>>> 20f928ae83f8e4ecaf24ec8eeea4a3fe821e12c2
     getDownloadURL(ref(storage, snapshot.val().dataURL)).then((url) => {
       setData(snapshot.val());
       if(snapshot.val().commentList){
@@ -202,6 +213,7 @@ function EditAudio(props) {
                 Save
               </Button>{" "}
             </div>
+<<<<<<< HEAD
             <Button
               variant={
                 props.theme === "light"
@@ -213,6 +225,9 @@ function EditAudio(props) {
             >
               Save
             </Button>{" "}
+=======
+            <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleSaving}>Save</Button>{' '}
+>>>>>>> 20f928ae83f8e4ecaf24ec8eeea4a3fe821e12c2
             <div>
               {/* <Upload
                 disabled={videoSrc !== ""}
