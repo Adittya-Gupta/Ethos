@@ -90,7 +90,7 @@ function EditAudio(props) {
               width: "100%",
             }}
           />
-          <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "row", width: "100%",justifyContent:"space-between" }}>
             <div style={{ width: "60%", margin:"2rem" }}>
               <Form.Group
                 className="mb-3"
@@ -101,6 +101,7 @@ function EditAudio(props) {
               </Form.Group>
               <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
             </div>
+            <Button variant={props.theme==="light"? "outline-primary" : "outline-secondary"} style={{color:"whitesmoke"}} onClick={handleOnClick}>Save</Button>{' '}
             <div>
               <Upload
                 disabled={videoSrc !== ""}
@@ -120,7 +121,7 @@ function EditAudio(props) {
                   <FileUploadIcon></FileUploadIcon>
                 </Button>
               </Upload>
-              <Spectrum audioUrl={videoSrc} />
+              <Spectrum audioUrl={videoSrc} theme = {props.theme} />
       <section className="Player">
         <style>
             {
