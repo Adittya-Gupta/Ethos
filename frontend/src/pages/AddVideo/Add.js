@@ -19,8 +19,9 @@ function Add(props) {
   const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
   const uploadButtonColor = props.theme === "light" ? "#3B76CB" : "#2C1E38";
   const iconColor = props.theme === "light" ? "#FFFFFF" : "#F2D1DB";
-  const [videoSrc, seVideoSrc] = useState("");
+  const [videoSRC, setVideoSRC] = useState("");
   const [link, setLink] = useState("");
+  const [videoSource, setVideoSource] = useState("");
   const navigate = useNavigate();
   const convert = (videoFileData, targetAudioFormat) => {
     try {
@@ -216,7 +217,11 @@ function Add(props) {
     const audioFile = new File([audioBlob], "audio.mp3", { type: "audio/mp3" });
     const storageRef = ref(
       storage,
-      `${(auth.currentUser ? auth.currentUser.uid : "user")+':'+convertedAudioDataObj.name}.${convertedAudioDataObj.format}`
+      `${
+        (auth.currentUser ? auth.currentUser.uid : "user") +
+        ":" +
+        convertedAudioDataObj.name
+      }.${convertedAudioDataObj.format}`
     );
     uploadBytes(storageRef, audioFile).then((snapshot) => {
       console.log("Uploaded a blob or file!");
@@ -238,27 +243,32 @@ function Add(props) {
           createdOn: new Date().toISOString(),
           lastModified: new Date().toISOString(),
           commentsNumber: 0,
-          commentList: [],  
-        }).then(()=>{
-          navigate('/editaudio', {state: {name: convertedAudioDataObj.name}})
-        })
-      })}
-  
-  const handleChange = (event) => {
-    const file = event.target.files[0];
-    console.log(file);
-    const url = URL.createObjectURL(file);
-    console.log(url);
-    seVideoSrc(url);
-    console.log(videoSrc);
-    convertToAudio(file);
+          commentList: [],
+        }
+      ).then(() => {
+        navigate("/editaudio", { state: { name: convertedAudioDataObj.name } });
+      });
+    });
   }
 
-  // useEffect(()=>{
-  //   setAbc(videoSrc)
-  //   console.log(abc)
-  // },[videoSrc,abc])
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    // console.log(url);
+    setVideoSRC(url);
+    setVideoSource("file-upload");
+    console.log(videoSRC);
+  };
 
+  const handleClick = (event) => {
+    if (videoSource === "file-upload") {
+      const file = videoSRC
+        ? document.getElementById("file-upload").files[0]
+        : null;
+      console.log(file);
+      convertToAudio(file);
+    }
+  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -309,7 +319,7 @@ function Add(props) {
                 }}
               >
                 {/* <Upload
-                  disabled={videoURL !== null}
+                  disabledsr={videoSRC !== null}
                   className="mt-3 mb-3"
                   accept=".mp4"
                   showUploadList={false}
@@ -318,7 +328,7 @@ function Add(props) {
                     convertToAudio(file);
                     console.log(file);
                     var url = URL.createObjectURL(file.originFileObj);
-                    seVideoSrc(url);
+                    setVideoSRC(url);
                   }}
                 > */}
                 <label
@@ -331,15 +341,15 @@ function Add(props) {
                 </label>
                 <input
                   type="file"
+                  onChange={handleChange}
                   id="file-upload"
-                  // disabled={videoURL !== null}
+                  disabled={videoSRC !== ""}
                   className="p-4"
                   accept=".mp4"
                   // showUploadList={false}
                   style={{
                     backgroundColor: uploadButtonColor,
                   }}
-                  onChange={(event)=>handleChange(event)}
                 />
                 {/* </Upload> */}
 
@@ -356,11 +366,12 @@ function Add(props) {
                     https://
                   </InputGroup.Text>
                   <Form.Control
-                    disabled={videoSrc !== null}
+                    disabled={videoSRC !== null}
                     id="basic-url"
                     aria-describedby="basic-addon3"
                     onChange={(e) => {
                       setLink(e.target.value);
+                      setVideoSource("link");
                     }}
                     style={{
                       backgroundColor:
@@ -370,7 +381,7 @@ function Add(props) {
                     }}
                   />
                   <BootstrapButton
-                    disabled={videoSrc !== null}
+                    disabled={videoSRC !== null}
                     variant={props.theme === "light" ? "primary" : "dark"}
                     style={{
                       borderColor:
@@ -393,10 +404,11 @@ function Add(props) {
                 }}
               >
                 <Button
-                  disabled={videoSrc === null}
+                  disabled={videoSRC === null}
                   style={{
                     color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
                   }}
+                  onClick={handleClick}
                 >
                   Convert
                 </Button>
@@ -423,7 +435,7 @@ function Add(props) {
                   borderRadius: "16px",
                 }}
                 controls={true}
-                url={videoSrc}
+                url={videoSRC}
               />
             </div>
           </div>
