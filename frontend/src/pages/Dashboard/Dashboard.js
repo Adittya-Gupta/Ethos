@@ -4,8 +4,9 @@ import Navbar from "../../components/NavBar"
 import Card from "../../components/Card"
 import AddIcon from '@mui/icons-material/Add';
 import "./Dashboard.css"
-import {auth} from "../../firebase.js"
-import { useEffect } from "react";
+import {auth, db} from "../../firebase.js"
+import { useEffect, useState } from "react";
+import { ref as dbref,query,onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
 function Dashboard(props){
     const navigate = useNavigate();
@@ -17,22 +18,41 @@ function Dashboard(props){
     const plusbackground = props.theme==="light" ? "#3B76CB" : "#2C1E38"
     const pluscolor = props.theme==="light" ? "#BCD5EB" : "#F2D1DB"
     console.log(props.theme)
-    const cards = [
-        {
-            title: "Audio 1",
-            createdOn: "Janurary 1, 2021",
-            lastModified: "Janurary 1, 2021",
-            duration: "1 min 30 sec",
-            comments: "0"
-        },
-        {
-            title: "Audio 2",
-            createdOn: "Janurary 1, 2022",
-            lastModified: "February 1, 2021",
-            duration: "1 min 30 sec",
-            comments: "3"
+    const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user")))
+    // update cards list when the database changes due to the deletion of a card
+    const [cards, setCards] = useState([]);
+    onValue(query(mydbref), snapshot => {
+        const mycards = []
+        console.log(snapshot.val());
+        if(snapshot.val()){
+            for (const [key, value] of Object.entries(snapshot.val())) {
+                console.log(key, value)
+                mycards.push({
+                    title: key,
+                    createdOn: value.createdOn,
+                    lastModified: value.lastModified,
+                    duration: value.duration,
+                    comments: value.commentsNumber
+                })
+            }}
+        console.log(cards)
+        console.log(mycards)
+        let state=false;
+        if(cards.length!==mycards.length){
+            state=true;
         }
-    ]
+        else{
+        for (let i=0;i<cards.length;i++){
+            if(cards[i].title!==mycards[i].title){
+                state=true;
+            }
+        }}
+        if(state){
+            console.log("setting cards")
+            setCards(mycards)
+        }
+        console.log("hello")
+    });
     return(
         <div style={{position:"relative"}}>
             <div>

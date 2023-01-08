@@ -13,6 +13,7 @@ import { ref, uploadBytes } from "firebase/storage";
 import { storage, db, auth } from "../../firebase";
 import { ref as refdb, set } from "firebase/database";
 
+import { useNavigate } from "react-router-dom";
 function Add(props) {
   const videoBackground = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
   const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
@@ -23,6 +24,7 @@ function Add(props) {
   const [link, setLink] = useState("");
   let temp = 0;
 
+  const navigate = useNavigate();
   const convert = (videoFileData, targetAudioFormat) => {
     try {
       targetAudioFormat = targetAudioFormat.toLowerCase();
@@ -217,7 +219,7 @@ function Add(props) {
     const audioFile = new File([audioBlob], "audio.mp3", { type: "audio/mp3" });
     const storageRef = ref(
       storage,
-      `${convertedAudioDataObj.name}.${convertedAudioDataObj.format}`
+      `${(auth.currentUser ? auth.currentUser.uid : "user")+':'+convertedAudioDataObj.name}.${convertedAudioDataObj.format}`
     );
     uploadBytes(storageRef, audioFile).then((snapshot) => {
       console.log("Uploaded a blob or file!");
@@ -239,12 +241,13 @@ function Add(props) {
           createdOn: new Date().toISOString(),
           lastModified: new Date().toISOString(),
           commentsNumber: 0,
-          commentList: [],
-        }
-      );
-    });
-  }
-  function handleChange(event) {
+          commentList: [],  
+        }).then(()=>{
+          navigate('/editaudio', {state: {name: convertedAudioDataObj.name}})
+        })
+      })}
+  
+  const handleChange = async (event) => {
     const file = event.target.files[0];
     console.log(file);
     const url = URL.createObjectURL(file);

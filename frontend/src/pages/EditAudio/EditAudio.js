@@ -10,9 +10,13 @@ import "../../components/AudioPlayer/Spectrum.css";
 import "../../components/AudioPlayer/Player.css";
 import { Spectrum } from "../../components/AudioPlayer/Spectrum";
 import { useEffect} from "react";
-import { storage } from "../../firebase";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { storage,db, auth } from "../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
+import { ref as dbref,query,onValue } from "firebase/database";
+import { useLocation } from "react-router-dom";
 function EditAudio(props) {
+  const location = useLocation();
+  const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + location.state.name))
   const audioRef = useRef();  
   const [videoSrc, seVideoSrc] = useState("");
   const titleColor = props.theme === "light" ? "#13458C" : "#AC6086";
@@ -20,9 +24,15 @@ function EditAudio(props) {
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
   const [comment,setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
-  getDownloadURL(ref(storage, "file_example_MP4_480_1_5MG.mp3")).then((url) => {
-    seVideoSrc(url);
-  });
+  onValue(query(mydbref), snapshot => {
+    getDownloadURL(ref(storage, snapshot.val().dataURL)).then((url) => {
+      seVideoSrc(url);
+  })
+  // mydbref.on('value', (snapshot) => {
+  //   console.log(snapshot.val());
+  //   
+  //   // });
+  })
   // const handleChange = ({ file }) => {
   //   console.log(file);
   //   var url = URL.createObjectURL(file.originFileObj);
