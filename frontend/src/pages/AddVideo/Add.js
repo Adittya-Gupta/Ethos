@@ -26,7 +26,6 @@ function Add(props) {
   const [videoSRC, setVideoSRC] = useState("");
   const [link, setLink] = useState("");
   const [videoSource, setVideoSource] = useState("");
-  const navigate = useNavigate();
   const convert = (videoFileData, targetAudioFormat) => {
     try {
       targetAudioFormat = targetAudioFormat.toLowerCase();
