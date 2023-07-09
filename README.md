@@ -9,12 +9,11 @@ The user can then add timestamps and comments on the audio and save it for later
 #### Change the current working directory to frontend
 ```cd fronted```
 #### Then run the following command to install all the frontend libraries
-```npm install```
+```npm install --force```
 #### Run the following command to start the frontend
 ```npm start```
 #### After this change your current working directory to backend after coming back to project folder
 ```cd ..```
-```cd backend```
 #### Run the following command to install all the libraries
 ```pip install -U yt-dlp pydub firebase_admin pytube flask```
 #### After this you can start running the server using 
