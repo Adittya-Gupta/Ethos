@@ -4,7 +4,7 @@ import subprocess
 import os
 from pydub import AudioSegment
 import datetime
-app = Flask(__name__,static_url_path='', static_folder='frontend/build')
+app = Flask(__name__)
 from flask_cors import CORS
 CORS(app)
 cred = credentials.Certificate("./firebase_key.json")
@@ -34,8 +34,5 @@ def convert():
     os.remove(filename+'.mp3')
     os.remove(filename+'.m4a')
     return user+'/'+filename+'.mp3'
-@app.route("/", defaults={'path':''})
-def serve(path):
-    return send_from_directory(app.static_folder,'index.html')
 if __name__ == "__main__":
     app.run()
