@@ -8,6 +8,7 @@ It has both dark and light modes for the user's convenience along with Google Au
 ![image](https://github.com/Adittya-Gupta/Ethos/assets/42384065/e22f3c8a-2319-4234-abd7-a935b8874f44)
 
 One can easily find and edit their past audio clips as well as add new videos through a file from their PC or even videos from 100+ websites like YouTube and Twitch.
+![image](https://github.com/Adittya-Gupta/Ethos/assets/42384065/a695aa8b-f480-41ba-8dd8-6d3250b9d64a)
 ![image](https://github.com/Adittya-Gupta/Ethos/assets/42384065/661b1c50-9aed-47e4-a973-2ff655742d06)
 ![image](https://github.com/Adittya-Gupta/Ethos/assets/42384065/c5182882-9979-434e-afae-3ebf230d9ce1)
 ![image](https://github.com/Adittya-Gupta/Ethos/assets/42384065/3096b79b-7af4-47c3-981c-2d25e4474df8)
