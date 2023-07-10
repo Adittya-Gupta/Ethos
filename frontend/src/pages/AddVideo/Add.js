@@ -10,11 +10,13 @@ import InputGroup from "react-bootstrap/InputGroup";
 import BootstrapButton from "react-bootstrap/Button";
 import axios from "axios";
 import "./module.add.css";
-import { ref, uploadBytes } from "firebase/storage";
-import { storage, db, auth } from "../../firebase";
-import { ref as refdb, set } from "firebase/database";
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
+import { ref, uploadBytes } from "firebase/storage";
+import { ref as refdb, set } from "firebase/database";
+import { storage, db, auth } from "../../firebase";
+
 function Add(props) {
   const [loading, setLoading] = useState(false);
   const [uploadMethod, setUploadMethod] = useState("");
@@ -22,6 +24,7 @@ function Add(props) {
   if(auth.currentUser===null){
     navigate("/login");
   }
+
   const videoBackground = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
   const headingColor = props.theme === "light" ? "#13458C" : "#AC6086";
   const uploadButtonColor = props.theme === "light" ? "#3B76CB" : "#2C1E38";
@@ -29,6 +32,11 @@ function Add(props) {
   const [videoSRC, setVideoSRC] = useState("");
   const [link, setLink] = useState("");
   const [videoSource, setVideoSource] = useState("");
+
+  // Function : converts video from file into audio
+  // ----------------------------------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------------------------------
+
   const convert = (videoFileData, targetAudioFormat) => {
     try {
       targetAudioFormat = targetAudioFormat.toLowerCase();
@@ -208,6 +216,11 @@ function Add(props) {
   //   a.click();
   // }
 
+
+  // -----------------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------------
+
+
   async function convertToAudio(file) {
     let sourceVideoFile = file;
     let targetAudioFormat = "mp3";
@@ -221,6 +234,8 @@ function Add(props) {
 
     // Create a reference to the audio file
     const audioFile = new File([audioBlob], "audio.mp3", { type: "audio/mp3" });
+
+    // create a storageref to upload to firebase storage
     const storageRef = ref(
       storage,
       `${
@@ -229,12 +244,14 @@ function Add(props) {
         convertedAudioDataObj.name
       }.${convertedAudioDataObj.format}`
     );
+
+    // uploading to firebase storage
     uploadBytes(storageRef, audioFile).then((snapshot) => {
       console.log("Uploaded a blob or file!");
       console.log(snapshot);
       console.log(snapshot.ref._location.path);
       set(
-        refdb(
+        refdb( // data for the audio. it is stored in realtime database.
           db,
           "users/" +
             (auth.currentUser ? auth.currentUser.uid : "user") +
@@ -242,7 +259,7 @@ function Add(props) {
             convertedAudioDataObj.name +
             "/"
         ),
-        {
+        { 
           name: convertedAudioDataObj.name,
           format: convertedAudioDataObj.format,
           dataURL: snapshot.ref._location.path,
@@ -251,13 +268,15 @@ function Add(props) {
           commentsNumber: 0,
           commentList: [],
         }
-      ).then(() => {
+      ).then(() => {  // after uploading, navigate to /editaudio page
         navigate("/editaudio", { state: { name: convertedAudioDataObj.name, id: convertedAudioDataObj.name } });
       });
     });
   }
+
+  // Function : to convert video from URL to audio
   const Convertfromlink = async ()=>{
-    axios.get('http://127.0.0.1:5000/convert',{
+    axios.get('http://127.0.0.1:5000/convert',{ // API call to back-end for conversion
       params:{url:link,userid: auth.currentUser.uid!==null?auth.currentUser.uid:"guest"}
     }).then((res)=>{
       let name= new Date((new Date().toISOString())).toLocaleString()
@@ -274,7 +293,7 @@ function Add(props) {
           "createdOn" + name +
             "/"
         ),
-        {
+        { // data for the audio. it is stored in realtime database.
           name: "createdOn" + name,
           format: "mp3",
           dataURL: res.data,
@@ -283,11 +302,13 @@ function Add(props) {
           commentsNumber: 0,
           commentList: [],
         }
-      ).then(() => {
+      ).then(() => { // after uploading, navigate to /editaudio page
         navigate("/editaudio", { state: { name: "createdOn" + name, id: "createdOn" + name} });
       });
     })
   }
+
+  // event handler for file-conversion
   const handleChange = (event) => {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
@@ -298,6 +319,7 @@ function Add(props) {
     console.log(videoSRC);
   };
 
+  // event handler for link-conversion
   const handleClick = (event) => {
     if (videoSource === "file-upload") {
       const file = videoSRC
@@ -307,6 +329,7 @@ function Add(props) {
       convertToAudio(file);
     }
   };
+
   const ConvertClick = (event) => {
     setLoading(true);
     if(uploadMethod==='file-upload'){
@@ -499,7 +522,7 @@ function Add(props) {
           </div>}
           {loading===true && <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Extracting audio from your video:</div>}
           {loading===true && <div style={{ display: "flex", flexDirection: "column", width: "100%",alignItems:"center" }}>
-                <div> <CircularProgress style={{color:headingColor}} size={100}/> </div>
+                <div> <CircularProgress style={{color:headingColor}} size={100}/> </div> 
           </div>}
         </div>
       </div>

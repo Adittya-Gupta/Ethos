@@ -16,6 +16,8 @@ function Login(props) {
   const [email,setEmail]=useState("");
   const [passwd,setPasswd]=useState("");
   const headingcolor=theme==="dark"?"#F2D1DB":"#BCD5EB";
+
+  // Function : sign-in with google OAuth 
   const handleGoogleAuth = () => {
     signInWithGoogle().then(()=>{
       navigate('/dashboard');
@@ -23,6 +25,8 @@ function Login(props) {
       alert(err);
     });
   };
+
+  // Function : sign-in with email and password
   const handleLogin = async () => {
     let err = await signIn(email,passwd);
     console.log(err);
@@ -32,6 +36,8 @@ function Login(props) {
     }
     navigate('/emailverify');
   };
+
+  // Function : for the case when user forgot their password
   const handleForgotPasswd = () => {
     if(email===""){
       alert("Please enter your email first");
