@@ -16,7 +16,11 @@ function Card(props){
             navigate("/editaudio", { state: { id: props.id, name:props.title } });
         }
     }
-    const handleDelete = () => {
+    const handleDelete = (event) => {
+        // stops the click from bubbling into the edit click functionality
+        event.stopPropagation(); 
+        event.nativeEvent.stopImmediatePropagation();
+        
         const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + props.id))
         remove(mydbref)
     }
