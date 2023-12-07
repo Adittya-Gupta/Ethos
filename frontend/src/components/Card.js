@@ -10,13 +10,13 @@ function Card(props){
     const linecolor = props.theme==="light" ? "#BCD5EB" : "#AC6086"
     const deleteColor = props.theme==="light" ? "#3B84CB" : "#F2D1DB"
     const handleEditButton = (e) => {
-        if(!e.target.classList.contains("delete-button-dashboard")){
-            // This if condition is to prevent the click event from being triggered when the delete button is clicked
-            console.log("edit button was clicked")
-            navigate("/editaudio", { state: { id: props.id, name:props.title } });
-        }
+        navigate("/editaudio", { state: { id: props.id, name:props.title } });
     }
-    const handleDelete = () => {
+    const handleDelete = (event) => {
+        // stops the click from bubbling into the edit click functionality
+        event.stopPropagation(); 
+        event.nativeEvent.stopImmediatePropagation();
+        
         const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + props.id))
         remove(mydbref)
     }
