@@ -101,10 +101,10 @@ function Login(props) {
               >
                 Forgot Password?
               </div>
-              <div style={{ color: "#fff", fontSize: "14px", marginTop: "1%" }}>
+              <div style={{ fontSize: "14px", marginTop: "1%" }}>
                 <Link
                   to="/signup"
-                  style={{ color: "#fff", textDecoration: "none" }}
+                  style={{ color: headingcolor, textDecoration: "none" }}
                 >
                   Sign up
                 </Link>

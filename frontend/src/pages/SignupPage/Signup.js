@@ -96,10 +96,10 @@ function Signup(props) {
           >
             Sign Up
           </Button>
-          <div className="p-2  text-slate-500">
+          <div className="p-2" style={{ color: headingcolor }}>
             Have an account?{" "}
             <Link to="/login" style={{ textDecoration: "none", color: "#fff" }}>
-              login
+              Login
             </Link>
           </div>
         </Form>
