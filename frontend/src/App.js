@@ -12,12 +12,33 @@ import {
 } from "react-router-dom";
 import Add from "./pages/AddVideo/Add";
 import EditAudio from "./pages/EditAudio/EditAudio";
+// import Footer from "./pages/Footer";
 function App() {
   const [theme, setTheme] = useState("dark");
   return (
     <Router>
       <Routes>
-          <Route path="/" element={<Welcome theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}/>}>
+          <Route path="/" element={
+            <div className="main">
+              <div className="main2">
+
+                <Welcome theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}/>
+              </div>
+            {/* hello devesh */}
+            <footer>
+              <p>&copy; 2023 Your Website Name. All rights reserved. | 
+                <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+                <span> | </span>
+                <a href="https://github.com/YourGitHubUsername/YourRepository" target="_blank">
+                  <img src="https://static-00.iconduck.com/assets.00/github-icon-2048x1988-jzvzcf2t.png" alt="GitHub Logo" width="20" height="20">
+                </img></a>
+              </p>
+            </footer>
+
+            
+            </div>
+            
+          }>
           </Route>
           <Route path="/login" element={<LoginIn theme={theme}></LoginIn>}></Route>
           <Route path="/dashboard" element={<Dashboard theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></Dashboard>}></Route>
@@ -26,6 +47,7 @@ function App() {
           <Route path="/editaudio" element={<EditAudio theme={theme} onSwitch={()=>theme==="light" ? setTheme("dark") : setTheme("light")}></EditAudio>}></Route>
           <Route path="/emailverify" element={<EmailVerify theme={theme}></EmailVerify>}></Route>
         </Routes>
+
       </Router>
   );
 }
