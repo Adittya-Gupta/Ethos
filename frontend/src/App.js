@@ -26,10 +26,10 @@ function App() {
               </div>
             {/* hello devesh */}
             <footer>
-              <p>&copy; 2023 Your Website Name. All rights reserved. | 
+              <p >&copy; 2023 Audio-X. All rights reserved. | 
                 <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
                 <span> | </span>
-                <a href="https://github.com/YourGitHubUsername/YourRepository" target="_blank">
+                <a href="https://github.com/Adittya-Gupta/Ethos" target="_blank">
                   <img src="https://static-00.iconduck.com/assets.00/github-icon-2048x1988-jzvzcf2t.png" alt="GitHub Logo" width="20" height="20">
                 </img></a>
               </p>
