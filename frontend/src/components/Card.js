@@ -1,8 +1,9 @@
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import {ref as dbref, remove} from 'firebase/database'
 import { useNavigate } from 'react-router-dom';
-import {auth, db} from '../firebase'
+import { db} from '../firebase'
 function Card(props){
+    const storedAuth=JSON.parse(window.localStorage.getItem("token"));
     const navigate=useNavigate();
     const backcolor = props.theme==="light" ? "#8BB3DD" : "#2C1E38"
     const tcolor = props.theme==="light" ? "#13458C" : "#AC6086"
@@ -17,7 +18,7 @@ function Card(props){
         }
     }
     const handleDelete = () => {
-        const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user") +'/' + props.id))
+        const mydbref = dbref(db,("users/" + (storedAuth.user ? storedAuth.user.uid : "user") +'/' + props.id))
         remove(mydbref)
     }
     return(

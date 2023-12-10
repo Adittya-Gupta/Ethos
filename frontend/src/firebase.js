@@ -112,6 +112,7 @@ export const signIn = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password)
     .then((result) => {
       console.log(result.user);
+      window.localStorage.setItem("token",JSON.stringify(result));
     })
     .catch((error) => {
       console.log("hello");

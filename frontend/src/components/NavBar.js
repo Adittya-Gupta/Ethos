@@ -4,8 +4,9 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {signOut, auth} from "../firebase"
+import {signOut} from "../firebase"
 function Navbar(props) {
+  const storedAuth=JSON.parse(window.localStorage.getItem("token"));
   const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
   const navigate = useNavigate();
   const handleAlignment = (event, newAlignment) => {
@@ -16,6 +17,7 @@ function Navbar(props) {
   };
   const handleSignOut = () => {
     signOut();
+    window.localStorage.clear();
     navigate('/')
   };
   return (
@@ -32,7 +34,7 @@ function Navbar(props) {
           className="flex items-center justify-between py-2 md:justify-start md:space-x-10"
         >
           <div style={{color : props.theme==="light" ? "#4D79B8" : "#C6778F", fontWeight:800}} className="flex justify-start lg:w-0 lg:flex-1">
-            {auth.currentUser ? auth.currentUser.displayName : "User"}
+            {storedAuth.user ? storedAuth.user.displayName : "User"}
           </div>
           <ToggleButtonGroup
             sx={{
