@@ -19,6 +19,23 @@ import { useNavigate, useLocation } from "react-router-dom";
 function EditAudio(props) {
   const navigate = useNavigate();
   const location = useLocation();
+  var commentList = location.state.details.commentList;
+  console.log("comments: ", commentList);
+  const commentsDisplay = []
+  const  fancyTimeFormat = (duration) => {
+    const hrs = ~~(duration / 3600);
+    const mins = ~~((duration % 3600) / 60);
+    const secs = ~~duration % 60;
+    return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+  
+  for (let [key, value] of Object.entries(commentList)) {
+    commentsDisplay.push({
+      time: fancyTimeFormat(key),
+      comment: value
+    })
+  }
+
   const mydbref = dbref(
     db,
     "users/" +
@@ -26,19 +43,6 @@ function EditAudio(props) {
       "/" +
       location.state.id
   );
-
-  const loadList = () => {
-    let list = document.getElementById("commentsList");
-    list.innerHTML= `<ul style="list-style-type: none">`;
-    for (let [key, value] of comments){
-      list.innerHTML += `<li>
-        <button onclick="jump_to_timestamp(${key})" style = "text-overflow: ellipsis;   
-        overflow: hidden; white-space: nowrap;">${key}: ${value}</button></li>`;
-    }
-    list.innerHTML += `</ul>`
-  };
-
-  
   const audioRef = useRef();
   const [videoSrc, seVideoSrc] = useState("");
   const titleColor = props.theme === "light" ? "#13458C" : "#AC6086";
@@ -49,7 +53,6 @@ function EditAudio(props) {
   const [isPaussed, setIsPaussed] = useState(true);
   const [namechange, setName] = useState(location.state.name);
   const [data, setData] = useState({});
-  
   const addMarker = () => {
     const audioTag = document.getElementById(videoSrc);
     const currentTime = audioTag.currentTime;
@@ -64,14 +67,19 @@ function EditAudio(props) {
     position: absolute;
     `;
     commentsDiv.appendChild(div);
-    let audio = document.getElementById(videoSrc);
-    audio.currentTime = 48;
+    
   };
 
-  
   function jump_to_timestamp(time){
+    console.log("got here!");
+    console.log(time[0]);
+    let hours_to_secs = parseInt(time[0])*3600;
+    let minutes_to_secs = (parseInt(time[2])*10+parseInt(time[3]))*60;
+    let secs = parseInt(time[5])*10 + parseInt(time[6]);
+    let time_set = hours_to_secs + minutes_to_secs + secs;
+    console.log(time_set);
     let audio = document.getElementById(videoSrc);
-    audio.currentTime = time;
+    audio.currentTime = time_set;
   } 
 
   onValue(query(mydbref), snapshot => {
@@ -293,7 +301,6 @@ function EditAudio(props) {
                   `}
                 </style>
                 <audio
-                  crossOrigin="anonymous"
                   key={videoSrc}
                   id={videoSrc}
                   ref={audioRef}
@@ -319,30 +326,38 @@ function EditAudio(props) {
                     fontSize: "24px",
                     fontWeight: "600",
                     color: titleColor,
-                    cursor: "default",
+                    cursor: "none",
                   }}>
                     Comments Added
                   </div>
-                  <div 
-                  onClick = {loadList} 
-                  id = "commentsList"
-                  style={{
-                    fontSize: "1rem",
-                    backgroundColor: backColor,
-                    color: tcolor,
-                    height: "90%",
-                    width: "100%",
-                    borderWidth: "1px",
-                    borderColor: outline,
-                    padding: "10px",
-                    borderRadius: "5px",
-                    cursor: "default",
-                    textOverflow: "ellipsis",   
-                    overflow: "hidden",
-                    whiteSpace: "nowrap", 
-                  }}>
-                    Click Here
-                  </div>
+                  <div className=""
+                      style= {{fontSize: "1rem",
+                      backgroundColor: backColor,
+                      color: tcolor,
+                      height: "90%",
+                      width: "100%",
+                      borderWidth: "1px",
+                      borderColor: outline,
+                      padding: "10px",
+                      borderRadius: "5px",
+                      cursor: "default",}}
+                      id = "commentsList">
+                        <ul>
+                  {commentsDisplay.map((obj) => (
+                      <li><button style={{
+                        border: "none",
+                        width: "96%",
+                        backgroundColor: "transparent",
+                        textOverflow: "ellipsis",   
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textAlign: "left",}}
+                        onClick = {() => jump_to_timestamp(obj.time)}
+                        >
+                          {obj.time}: {obj.comment}</button></li>
+                  ))}
+                  </ul>
+                </div>
                 </div>
               </section>
             </div>
@@ -352,5 +367,4 @@ function EditAudio(props) {
     </div>
   );
 }
-
 export default EditAudio;
