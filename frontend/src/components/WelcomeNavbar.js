@@ -3,6 +3,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
+import Lottie from "react-lottie";
+import animationData from "../lotties/audio-wave.json"
 import { Link } from "react-router-dom";
 function WelcomeNavbar(props) {
   const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
@@ -13,6 +15,16 @@ function WelcomeNavbar(props) {
       props.onSwitch();
     }
   };
+
+  const logo = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
   return (
     <div
       style={{
@@ -28,11 +40,11 @@ function WelcomeNavbar(props) {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="/">
               <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto sm:h-10"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
+                <Lottie 
+                  options={logo}
+                  height={50}
+                  width={50}
+                />
             </a>
           </div>
           <ToggleButtonGroup

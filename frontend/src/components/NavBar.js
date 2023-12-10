@@ -3,6 +3,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
+import Lottie from "react-lottie";
+import animationData from "../lotties/audio-wave.json"
 import { useNavigate } from "react-router-dom";
 import {signOut, auth} from "../firebase"
 function Navbar(props) {
@@ -17,6 +19,14 @@ function Navbar(props) {
   const handleSignOut = () => {
     signOut();
     navigate('/')
+  };
+  const logo = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
   };
   return (
     <div
@@ -99,11 +109,11 @@ function Navbar(props) {
           <div className="px-5 pt-5 pb-6">
             <div className="flex items-center justify-between">
               <div>
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                  alt="Your Company"
-                />
+                <Lottie 
+                    options={logo}
+                    height={50}
+                    width={50}
+                  />
               </div>
             </div>
           </div>
