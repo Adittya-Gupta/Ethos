@@ -26,15 +26,30 @@ function EditAudio(props) {
       "/" +
       location.state.id
   );
+
+  const loadList = () => {
+    let list = document.getElementById("commentsList");
+    list.innerHTML= `<ul style="list-style-type: none">`;
+    for (let [key, value] of comments){
+      list.innerHTML += `<li>
+        <button onclick="jump_to_timestamp(${key})" style = "text-overflow: ellipsis;   
+        overflow: hidden; white-space: nowrap;">${key}: ${value}</button></li>`;
+    }
+    list.innerHTML += `</ul>`
+  };
+
+  
   const audioRef = useRef();
   const [videoSrc, seVideoSrc] = useState("");
   const titleColor = props.theme === "light" ? "#13458C" : "#AC6086";
   const backColor = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
+  const outline = props.theme ==="light"? "outline-primary" : "outline-secondary";
   const [comment, setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
   const [namechange, setName] = useState(location.state.name);
   const [data, setData] = useState({});
+  
   const addMarker = () => {
     const audioTag = document.getElementById(videoSrc);
     const currentTime = audioTag.currentTime;
@@ -49,7 +64,15 @@ function EditAudio(props) {
     position: absolute;
     `;
     commentsDiv.appendChild(div);
+    let audio = document.getElementById(videoSrc);
+    audio.currentTime = 48;
   };
+
+  
+  function jump_to_timestamp(time){
+    let audio = document.getElementById(videoSrc);
+    audio.currentTime = time;
+  } 
 
   onValue(query(mydbref), snapshot => {
     getDownloadURL(ref(storage, snapshot.val().dataURL)).then((url) => {
@@ -290,6 +313,37 @@ function EditAudio(props) {
                     width: "480px",
                   }}
                 ></div>
+                <div id = "commentsAdded"
+                style={{ width: "100%", margin: "3rem", display:"flex", flexDirection:"column", gap:"0.5rem" }}>
+                  <div style={{
+                    fontSize: "24px",
+                    fontWeight: "600",
+                    color: titleColor,
+                    cursor: "default",
+                  }}>
+                    Comments Added
+                  </div>
+                  <div 
+                  onClick = {loadList} 
+                  id = "commentsList"
+                  style={{
+                    fontSize: "1rem",
+                    backgroundColor: backColor,
+                    color: tcolor,
+                    height: "90%",
+                    width: "100%",
+                    borderWidth: "1px",
+                    borderColor: outline,
+                    padding: "10px",
+                    borderRadius: "5px",
+                    cursor: "default",
+                    textOverflow: "ellipsis",   
+                    overflow: "hidden",
+                    whiteSpace: "nowrap", 
+                  }}>
+                    Click Here
+                  </div>
+                </div>
               </section>
             </div>
           </div>
@@ -298,4 +352,5 @@ function EditAudio(props) {
     </div>
   );
 }
+
 export default EditAudio;
