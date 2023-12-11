@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import { signUp, checkEmail } from "../../firebase.js";
 import { useState } from "react";
+import toast from "react-hot-toast";
 function Signup(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -18,14 +19,14 @@ function Signup(props) {
     console.log(email, passwd, username);
     const emailExists = await checkEmail(email);
     if (emailExists) {
-      alert("Email already exists");
+     toast.error("Email already exists");
       return;
     }
     const err = await signUp(email, passwd, username);
     console.log("hello");
     console.log(err);
     if (err) {
-      alert(err);
+      toast.error(err);
       return;
     }
     navigate("/emailverify");
