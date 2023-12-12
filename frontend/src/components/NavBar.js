@@ -4,7 +4,9 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
 import Lottie from "react-lottie";
-import animationData from "../lotties/audio-wave.json"
+import lottiewave from "../lotties/audio-wave.json"
+import lottiemoon from "../lotties/moon.json"
+import lottiesun from "../lotties/sun.json"
 import { useNavigate } from "react-router-dom";
 import {signOut, auth} from "../firebase"
 function Navbar(props) {
@@ -20,10 +22,28 @@ function Navbar(props) {
     signOut();
     navigate('/')
   };
-  const logo = {
+  const logo_wave = {
     loop: true,
     autoplay: true,
-    animationData: animationData,
+    animationData: lottiewave,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
+  const logo_moon = {
+    loop: true,
+    autoplay: true,
+    animationData: lottiemoon,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
+  const logo_sun = {
+    loop: true,
+    autoplay: true,
+    animationData: lottiesun,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice"
     }
@@ -110,7 +130,7 @@ function Navbar(props) {
             <div className="flex items-center justify-between">
               <div>
                 <Lottie 
-                    options={logo}
+                    options={logo_wave}
                     height={50}
                     width={50}
                   />
