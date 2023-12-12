@@ -60,22 +60,22 @@ function Navbar(props) {
               aria-label="left aligned"
               sx={{ border: "none" }}
             >
-              <Brightness5Icon
-                sx={{
-                  color: props.theme === "light" ? "#F6C86C" : "#C6778F",
-                }}
-              ></Brightness5Icon>
+              <Lottie 
+                  options={logo_sun}
+                  height={20}
+                  width={20}
+                />
             </ToggleButton>
             <ToggleButton
               value="right"
               aria-label="right aligned"
               sx={{ border: "none" }}
             >
-              <DarkModeIcon
-                sx={{
-                  color: props.theme === "light" ? "#4D79B8" : "#F4F6F0",
-                }}
-              ></DarkModeIcon>
+              <Lottie 
+                  options={logo_moon}
+                  height={20}
+                  width={20}
+                />
             </ToggleButton>
           </ToggleButtonGroup>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">

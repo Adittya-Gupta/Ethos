@@ -4,7 +4,9 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
 import Lottie from "react-lottie";
-import animationData from "../lotties/audio-wave.json"
+import lottiewave from "../lotties/audio-wave.json"
+import lottiemoon from "../lotties/moon.json"
+import lottiesun from "../lotties/sun.json"
 import { Link } from "react-router-dom";
 function WelcomeNavbar(props) {
   const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
@@ -16,10 +18,28 @@ function WelcomeNavbar(props) {
     }
   };
 
-  const logo = {
+  const logo_wave = {
     loop: true,
     autoplay: true,
-    animationData: animationData,
+    animationData: lottiewave,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
+  const logo_moon = {
+    loop: true,
+    autoplay: true,
+    animationData: lottiemoon,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
+  const logo_sun = {
+    loop: true,
+    autoplay: true,
+    animationData: lottiesun,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice"
     }
@@ -41,7 +61,7 @@ function WelcomeNavbar(props) {
             <a href="/">
               <span className="sr-only">Your Company</span>
                 <Lottie 
-                  options={logo}
+                  options={logo_wave}
                   height={50}
                   width={50}
                 />
@@ -63,22 +83,22 @@ function WelcomeNavbar(props) {
               aria-label="left aligned"
               sx={{ border: "none" }}
             >
-              <Brightness5Icon
-                sx={{
-                  color: props.theme === "light" ? "#F6C86C" : "#C6778F",
-                }}
-              ></Brightness5Icon>
+              <Lottie 
+                  options={logo_sun}
+                  height={20}
+                  width={20}
+                />
             </ToggleButton>
             <ToggleButton
               value="right"
               aria-label="right aligned"
               sx={{ border: "none" }}
             >
-              <DarkModeIcon
-                sx={{
-                  color: props.theme === "light" ? "#4D79B8" : "#F4F6F0",
-                }}
-              ></DarkModeIcon>
+              <Lottie 
+                  options={logo_moon}
+                  height={20}
+                  width={20}
+                />
             </ToggleButton>
           </ToggleButtonGroup>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
