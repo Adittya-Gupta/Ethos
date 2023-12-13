@@ -15,7 +15,7 @@ import { getStorage } from "firebase/storage";
 import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+import toast from "react-hot-toast";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -48,7 +48,7 @@ export const signOut = () => {
       console.log("Signed Out");
     })
     .catch((error) => {
-      alert(error.message);
+      toast.error(error.message);
     });
 };
 
@@ -63,7 +63,7 @@ export const checkEmail = async (email) => {
       }
     })
     .catch((error) => {
-      alert(error.message);
+      toast.error(error.message);
     });
 };
 
@@ -82,7 +82,7 @@ export const signUp = async (email, password, username) => {
         })
         .then(() => {
           sendEmailVerification(auth.currentUser).then(() => {
-            alert("Verification Email Sent");
+            toast.success("Verification Email Sent");
             return "Verification Email Sent";
           });
         });
@@ -99,10 +99,10 @@ export const signUp = async (email, password, username) => {
 export const SendVerificationEmail = () => {
   sendEmailVerification(auth.currentUser)
     .then(() => {
-      alert("Verification Email Sent");
+      toast.success("Verification Email Sent");
     })
     .catch((error) => {
-      alert(error.message);
+      toast.error(error.message);
     });
 };
 
@@ -112,6 +112,7 @@ export const signIn = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password)
     .then((result) => {
       console.log(result.user);
+      window.localStorage.setItem("token",JSON.stringify(result));
     })
     .catch((error) => {
       console.log("hello");
@@ -124,10 +125,10 @@ export const signIn = async (email, password) => {
 export const resetPassword = (email) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
-      alert("Password Reset Link Sent to your Email");
+      toast.success("Password Reset Link Sent to your Email");
     })
     .catch((error) => {
-      alert(error.message);
+      toast.error(error.message);
     });
 };
 
