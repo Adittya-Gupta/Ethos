@@ -26,7 +26,8 @@ function Login(props) {
   // Function : sign-in with google OAuth
   const handleGoogleAuth = () => {
     signInWithGoogle()
-      .then(() => {
+      .then((result) => {
+        window.localStorage.setItem("token", JSON.stringify(result));
         navigate("/dashboard");
       })
       .catch((err) => {

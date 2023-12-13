@@ -10,8 +10,9 @@ import { ref as dbref,query,onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
 function Dashboard(props){
     const storedAuth=JSON.parse(window.localStorage.getItem("token"));
+    console.log("storedAuth:"+storedAuth)
     const navigate = useNavigate();
-    if(storedAuth.user===null){
+    if(storedAuth===null){
         navigate("/login")
     }
     console.log("storedAuth;:"+storedAuth);

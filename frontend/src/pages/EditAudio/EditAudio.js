@@ -28,12 +28,14 @@ function EditAudio(props) {
     const secs = ~~duration % 60;
     return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
-  
-  for (let [key, value] of Object.entries(commentList)) {
-    commentsDisplay.push({
-      time: fancyTimeFormat(key),
-      comment: value
-    })
+  if(commentList){
+
+    for (let [key, value] of Object.entries(commentList)) {
+      commentsDisplay.push({
+        time: fancyTimeFormat(key),
+        comment: value
+      })
+    }
   }
 
   const mydbref = dbref(
