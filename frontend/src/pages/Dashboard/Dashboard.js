@@ -25,21 +25,18 @@ function Dashboard(props){
     const [cards, setCards] = useState([]);
     onValue(query(mydbref), snapshot => {
         const mycards = []
-        console.log(snapshot.val());
         if(snapshot.val()){
             for (const [key, value] of Object.entries(snapshot.val())) {
-                console.log(key, value)
                 mycards.push({
                     id: key,
                     title: value.name,
                     createdOn: value.createdOn,
                     lastModified: value.lastModified,
                     duration: value.duration,
-                    comments: value.commentsNumber
+                    commentList: value.commentList,
+                    commentsNumber: value.commentsNumber
                 })
             }}
-        console.log(cards)
-        console.log(mycards)
         let state=false;
         if(cards.length!==mycards.length){
             state=true;
@@ -51,10 +48,8 @@ function Dashboard(props){
             }
         }}
         if(state){
-            console.log("setting cards")
             setCards(mycards)
         }
-        console.log("hello")
     });
     return(
         <div style={{position:"relative"}}>
@@ -77,7 +72,7 @@ function Dashboard(props){
           <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Here are your recent audios :</div>
           {
                 cards.map((card)=>{
-                    return <Card id={card.id} theme={props.theme} title={card.title} createdOn={card.createdOn} lastModified={card.lastModified} duration={card.duration} comments={card.comments}></Card>
+                    return <Card id={card.id} theme={props.theme} title={card.title} createdOn={card.createdOn} lastModified={card.lastModified} duration={card.duration} commentsNumber={card.commentsNumber} commentList={card.commentList}></Card>
                 })
           }
           

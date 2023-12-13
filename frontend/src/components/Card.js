@@ -11,7 +11,7 @@ function Card(props){
     const linecolor = props.theme==="light" ? "#BCD5EB" : "#AC6086"
     const deleteColor = props.theme==="light" ? "#3B84CB" : "#F2D1DB"
     const handleEditButton = (e) => {
-        navigate("/editaudio", { state: { id: props.id, name:props.title } });
+        navigate("/editaudio", { state: { id: props.id, name:props.title, details: props  } });
     }
 
     const handleDelete = (event) => {
@@ -32,7 +32,7 @@ function Card(props){
         <div style={{display:"flex",flexDirection:"column",height:"100%",justifyContent:"flex-end",gap:"0.2rem",padding:"0.5rem"}}>
                  <div style={{color:t2color,fontWeight:500}}> <span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Created on :</span> {(new Date((props.createdOn)).toLocaleString())}</div>
                  <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Last Modified :</span> {(new Date((props.lastModified)).toLocaleString())}</div>
-                 <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Comments :</span> {props.comments}</div>
+                 <div style={{color:t2color,fontWeight:500}}><span style={{color:tcolor,fontSize:"20px",fontWeight:500,fontFamily:"'Playfair Display'"}}>Comments :</span> {props.commentsNumber}</div>
         </div>
         <div style={{position:"absolute",right:"10px",bottom:"10px",cursor:"pointer",border:"2px solid",borderRadius:"100%",padding:"0.5rem",borderColor:linecolor}} onClick={handleDelete} className="delete-button-dashboard">
             <DeleteOutlinedIcon sx={{color : deleteColor}}></DeleteOutlinedIcon>
