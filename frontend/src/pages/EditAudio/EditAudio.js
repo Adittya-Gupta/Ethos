@@ -338,23 +338,32 @@ function EditAudio(props) {
                       width: "100%",
                       borderWidth: "1px",
                       borderColor: outline,
-                      padding: "10px",
+                      padding: "20px",
                       borderRadius: "5px",
                       cursor: "default",}}
                       id = "commentsList">
                         <ul>
                   {commentsDisplay.map((obj) => (
                       <li><button style={{
-                        border: "none",
+                        fontWeight: "500",
+                        borderBottom: "dotted 0.5px",
+                        borderTop: "none",
+                        borderLeft: "none",
+                        borderRight: "none",   
+                        borderColor: outline,
+                        borderWidth: "1",
                         width: "96%",
                         backgroundColor: "transparent",
                         textOverflow: "ellipsis",   
                         overflow: "hidden",
                         whiteSpace: "nowrap",
-                        textAlign: "left",}}
+                        textAlign: "left",
+                        color: tcolor,
+                        }}
                         onClick = {() => jump_to_timestamp(obj.time)}
+                      
                         >
-                          {obj.time}: {obj.comment}</button></li>
+                          <b style={{color: tcolor,}}>{obj.time}</b>: {obj.comment}</button></li>
                   ))}
                   </ul>
                 </div>
