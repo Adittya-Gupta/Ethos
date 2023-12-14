@@ -40,7 +40,7 @@ function EditAudio(props) {
     const currentTime = audioTag.currentTime;
     const totalTime = audioTag.duration;
 
-    let distance = (currentTime / totalTime) * 303;
+    let distance = (currentTime / totalTime) * 63;
     const commentsDiv = document.getElementById("commentsDiv");
     const div = document.createElement("div");
     div.id = currentTime;
