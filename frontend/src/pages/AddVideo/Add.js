@@ -547,6 +547,16 @@ function Add(props) {
               </h1>
               <ReactPlayer
                 id="reactplayer"
+                config={{
+                  facebook: {
+                      attributes: {
+                        // add css to control video styling
+                        height: "300px",
+                        padding: "2rem",   
+                        backgroundColor: videoBackground, 
+                    }
+                  }
+                }}
                 style={{
                   marginTop: "1rem",
                   padding: "2rem",
