@@ -5,8 +5,6 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
 import Lottie from "react-lottie";
 import lottiewave from "../lotties/audio-wave.json"
-import lottiemoon from "../lotties/moon.json"
-import lottiesun from "../lotties/sun.json"
 import { useNavigate } from "react-router-dom";
 import {signOut} from "../firebase"
 function Navbar(props) {
@@ -28,24 +26,6 @@ function Navbar(props) {
     loop: true,
     autoplay: true,
     animationData: lottiewave,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  };
-
-  const logo_moon = {
-    loop: true,
-    autoplay: true,
-    animationData: lottiemoon,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  };
-
-  const logo_sun = {
-    loop: true,
-    autoplay: true,
-    animationData: lottiesun,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice"
     }
@@ -82,22 +62,22 @@ function Navbar(props) {
               aria-label="left aligned"
               sx={{ border: "none" }}
             >
-              <Lottie 
-                  options={logo_sun}
-                  height={20}
-                  width={20}
-                />
+              <Brightness5Icon
+                sx={{
+                  color: props.theme === "light" ? "#F6C86C" : "#C6778F",
+                }}
+              ></Brightness5Icon>
             </ToggleButton>
             <ToggleButton
               value="right"
               aria-label="right aligned"
               sx={{ border: "none" }}
             >
-              <Lottie 
-                  options={logo_moon}
-                  height={20}
-                  width={20}
-                />
+              <DarkModeIcon
+                sx={{
+                  color: props.theme === "light" ? "#4D79B8" : "#F4F6F0",
+                }}
+              ></DarkModeIcon>
             </ToggleButton>
           </ToggleButtonGroup>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
