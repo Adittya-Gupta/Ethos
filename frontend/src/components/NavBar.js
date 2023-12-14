@@ -3,9 +3,14 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
+import Lottie from "react-lottie";
+import lottiewave from "../lotties/audio-wave.json"
+import lottiemoon from "../lotties/moon.json"
+import lottiesun from "../lotties/sun.json"
 import { useNavigate } from "react-router-dom";
-import {signOut, auth} from "../firebase"
+import {signOut} from "../firebase"
 function Navbar(props) {
+  const storedAuth=JSON.parse(window.localStorage.getItem("token"));
   const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
   const navigate = useNavigate();
   const handleAlignment = (event, newAlignment) => {
@@ -16,7 +21,34 @@ function Navbar(props) {
   };
   const handleSignOut = () => {
     signOut();
+    window.localStorage.clear();
     navigate('/')
+  };
+  const logo_wave = {
+    loop: true,
+    autoplay: true,
+    animationData: lottiewave,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
+  const logo_moon = {
+    loop: true,
+    autoplay: true,
+    animationData: lottiemoon,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
+  const logo_sun = {
+    loop: true,
+    autoplay: true,
+    animationData: lottiesun,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
   };
   return (
     <div
@@ -32,7 +64,7 @@ function Navbar(props) {
           className="flex items-center justify-between py-2 md:justify-start md:space-x-10"
         >
           <div style={{color : props.theme==="light" ? "#4D79B8" : "#C6778F", fontWeight:800}} className="flex justify-start lg:w-0 lg:flex-1">
-            {auth.currentUser ? auth.currentUser.displayName : "User"}
+            {storedAuth.user ? storedAuth.user.displayName : "User"}
           </div>
           <ToggleButtonGroup
             sx={{
@@ -50,22 +82,22 @@ function Navbar(props) {
               aria-label="left aligned"
               sx={{ border: "none" }}
             >
-              <Brightness5Icon
-                sx={{
-                  color: props.theme === "light" ? "#F6C86C" : "#C6778F",
-                }}
-              ></Brightness5Icon>
+              <Lottie 
+                  options={logo_sun}
+                  height={20}
+                  width={20}
+                />
             </ToggleButton>
             <ToggleButton
               value="right"
               aria-label="right aligned"
               sx={{ border: "none" }}
             >
-              <DarkModeIcon
-                sx={{
-                  color: props.theme === "light" ? "#4D79B8" : "#F4F6F0",
-                }}
-              ></DarkModeIcon>
+              <Lottie 
+                  options={logo_moon}
+                  height={20}
+                  width={20}
+                />
             </ToggleButton>
           </ToggleButtonGroup>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -99,11 +131,11 @@ function Navbar(props) {
           <div className="px-5 pt-5 pb-6">
             <div className="flex items-center justify-between">
               <div>
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                  alt="Your Company"
-                />
+                <Lottie 
+                    options={logo_wave}
+                    height={50}
+                    width={50}
+                  />
               </div>
             </div>
           </div>

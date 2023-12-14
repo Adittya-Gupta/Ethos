@@ -4,39 +4,40 @@ import Navbar from "../../components/NavBar"
 import Card from "../../components/Card"
 import AddIcon from '@mui/icons-material/Add';
 import "./Dashboard.css"
-import {auth, db} from "../../firebase.js"
+import { db} from "../../firebase.js"
 import { useState } from "react";
 import { ref as dbref,query,onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
 function Dashboard(props){
+    const storedAuth=JSON.parse(window.localStorage.getItem("token"));
+    console.log("storedAuth:"+storedAuth)
     const navigate = useNavigate();
-    if(auth.currentUser===null){
+    if(storedAuth===null){
         navigate("/login")
     }
+    console.log("storedAuth;:"+storedAuth);
+    //console.log("name"+storedAuth.user.displayName);
     // const [username, ] = useState(auth.currentUser.displayName)
     const plusbackground = props.theme==="light" ? "#13458C" : "#F2D1DB"
     const pluscolor = props.theme==="light" ? "#8BB3DD" : "#2C1E38"
     console.log(props.theme)
-    const mydbref = dbref(db,("users/" + (auth.currentUser ? auth.currentUser.uid : "user")))
+    const mydbref = dbref(db,("users/" + (storedAuth.user ? storedAuth.user.uid : "user")))
     // update cards list when the database changes due to the deletion of a card
     const [cards, setCards] = useState([]);
     onValue(query(mydbref), snapshot => {
         const mycards = []
-        console.log(snapshot.val());
         if(snapshot.val()){
             for (const [key, value] of Object.entries(snapshot.val())) {
-                console.log(key, value)
                 mycards.push({
                     id: key,
                     title: value.name,
                     createdOn: value.createdOn,
                     lastModified: value.lastModified,
                     duration: value.duration,
-                    comments: value.commentsNumber
+                    commentList: value.commentList,
+                    commentsNumber: value.commentsNumber
                 })
             }}
-        console.log(cards)
-        console.log(mycards)
         let state=false;
         if(cards.length!==mycards.length){
             state=true;
@@ -48,15 +49,13 @@ function Dashboard(props){
             }
         }}
         if(state){
-            console.log("setting cards")
             setCards(mycards)
         }
-        console.log("hello")
     });
     return(
         <div style={{position:"relative"}}>
             <div>
-                <Navbar name={auth.currentUser ? auth.currentUser.displayName : "USer"} theme={props.theme} onSwitch={props.onSwitch}></Navbar>
+                <Navbar name={storedAuth.user ? storedAuth.user.displayName : "USer"} theme={props.theme} onSwitch={props.onSwitch}></Navbar>
             </div>
             <div>
                 {props.theme==="light" ? <AnimatedLight></AnimatedLight> : <AnimatedDark></AnimatedDark>}
@@ -68,13 +67,13 @@ function Dashboard(props){
               fontSize: "44px",
             }}
           >
-            Hey {auth.currentUser ? auth.currentUser.displayName : "there"},
+            Hey {storedAuth.user ? storedAuth.user.displayName : "there"},
           </div>
           <hr style={{color:props.theme==="light" ? "#BCD5EB" : "#AC6086", height:"10px",borderWidth:"5px",width:"100%"}} />
           <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Here are your recent audios :</div>
           {
                 cards.map((card)=>{
-                    return <Card id={card.id} theme={props.theme} title={card.title} createdOn={card.createdOn} lastModified={card.lastModified} duration={card.duration} comments={card.comments}></Card>
+                    return <Card id={card.id} theme={props.theme} title={card.title} createdOn={card.createdOn} lastModified={card.lastModified} duration={card.duration} commentsNumber={card.commentsNumber} commentList={card.commentList}></Card>
                 })
           }
           

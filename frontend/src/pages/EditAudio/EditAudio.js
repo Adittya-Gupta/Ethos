@@ -19,6 +19,25 @@ import { useNavigate, useLocation } from "react-router-dom";
 function EditAudio(props) {
   const navigate = useNavigate();
   const location = useLocation();
+  var commentList = location.state.details.commentList;
+  console.log("comments: ", commentList);
+  const commentsDisplay = []
+  const  fancyTimeFormat = (duration) => {
+    const hrs = ~~(duration / 3600);
+    const mins = ~~((duration % 3600) / 60);
+    const secs = ~~duration % 60;
+    return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+  if(commentList){
+
+    for (let [key, value] of Object.entries(commentList)) {
+      commentsDisplay.push({
+        time: fancyTimeFormat(key),
+        comment: value
+      })
+    }
+  }
+
   const mydbref = dbref(
     db,
     "users/" +
@@ -31,6 +50,7 @@ function EditAudio(props) {
   const titleColor = props.theme === "light" ? "#13458C" : "#AC6086";
   const backColor = props.theme === "light" ? "#8BB3DD" : "#2C1E38";
   const tcolor = props.theme === "light" ? "#000000" : "#F2D1DB";
+  const outline = props.theme ==="light"? "outline-primary" : "outline-secondary";
   const [comment, setComment] = useState("");
   const [isPaussed, setIsPaussed] = useState(true);
   const [namechange, setName] = useState(location.state.name);
@@ -49,7 +69,20 @@ function EditAudio(props) {
     position: absolute;
     `;
     commentsDiv.appendChild(div);
+    
   };
+
+  function jump_to_timestamp(time){
+    console.log("got here!");
+    console.log(time[0]);
+    let hours_to_secs = parseInt(time[0])*3600;
+    let minutes_to_secs = (parseInt(time[2])*10+parseInt(time[3]))*60;
+    let secs = parseInt(time[5])*10 + parseInt(time[6]);
+    let time_set = hours_to_secs + minutes_to_secs + secs;
+    console.log(time_set);
+    let audio = document.getElementById(videoSrc);
+    audio.currentTime = time_set;
+  } 
 
   onValue(query(mydbref), snapshot => {
     getDownloadURL(ref(storage, snapshot.val().dataURL)).then((url) => {
@@ -270,7 +303,6 @@ function EditAudio(props) {
                   `}
                 </style>
                 <audio
-                  crossOrigin="anonymous"
                   key={videoSrc}
                   id={videoSrc}
                   ref={audioRef}
@@ -290,6 +322,54 @@ function EditAudio(props) {
                     width: "480px",
                   }}
                 ></div>
+                <div id = "commentsAdded"
+                style={{ width: "100%", margin: "3rem", display:"flex", flexDirection:"column", gap:"0.5rem" }}>
+                  <div style={{
+                    fontSize: "24px",
+                    fontWeight: "600",
+                    color: titleColor,
+                    cursor: "none",
+                  }}>
+                    Comments Added
+                  </div>
+                  <div className=""
+                      style= {{fontSize: "1rem",
+                      backgroundColor: backColor,
+                      color: tcolor,
+                      height: "90%",
+                      width: "100%",
+                      borderWidth: "1px",
+                      borderColor: outline,
+                      padding: "20px",
+                      borderRadius: "5px",
+                      cursor: "default",}}
+                      id = "commentsList">
+                        <ul>
+                  {commentsDisplay.map((obj) => (
+                      <li><button style={{
+                        fontWeight: "500",
+                        borderBottom: "dotted 0.5px",
+                        borderTop: "none",
+                        borderLeft: "none",
+                        borderRight: "none",   
+                        borderColor: outline,
+                        borderWidth: "1",
+                        width: "96%",
+                        backgroundColor: "transparent",
+                        textOverflow: "ellipsis",   
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textAlign: "left",
+                        color: tcolor,
+                        }}
+                        onClick = {() => jump_to_timestamp(obj.time)}
+                      
+                        >
+                          <b style={{color: tcolor,}}>{obj.time}</b>: {obj.comment}</button></li>
+                  ))}
+                  </ul>
+                </div>
+                </div>
               </section>
             </div>
           </div>

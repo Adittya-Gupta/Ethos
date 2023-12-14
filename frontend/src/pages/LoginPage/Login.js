@@ -12,6 +12,7 @@ import {
   auth,
 } from "../../firebase.js";
 import { useState } from "react";
+import toast from "react-hot-toast";
 function Login(props) {
   const navigate = useNavigate();
   if (auth.currentUser) {
@@ -25,11 +26,12 @@ function Login(props) {
   // Function : sign-in with google OAuth
   const handleGoogleAuth = () => {
     signInWithGoogle()
-      .then(() => {
+      .then((result) => {
+        window.localStorage.setItem("token", JSON.stringify(result));
         navigate("/dashboard");
       })
       .catch((err) => {
-        alert(err);
+        toast.error(err);
       });
   };
 
@@ -38,7 +40,7 @@ function Login(props) {
     let err = await signIn(email, passwd);
     console.log(err);
     if (err) {
-      alert(err);
+      toast.error(err);
       return;
     }
     navigate("/emailverify");
@@ -47,7 +49,9 @@ function Login(props) {
   // Function : for the case when user forgot their password
   const handleForgotPasswd = () => {
     if (email === "") {
-      alert("Please enter your email first");
+      toast("Please enter your email first",{
+        icon:"📧",
+      });
       return;
     }
     resetPassword(email);
