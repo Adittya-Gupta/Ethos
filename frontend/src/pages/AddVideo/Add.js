@@ -388,7 +388,7 @@ function Add(props) {
 
           {loading === false && <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col" style={{justifyContent: "space-between"}}>
               <h1 className="ml-4" style={{
                 fontFamily: "Playfair Display",
                 fontWeight: "500",
@@ -396,7 +396,7 @@ function Add(props) {
                 color: props.theme === "light" ? "#BCD5EB" : "#AC6086",
               }}>How to use?</h1>
 
-              <div className="blurred-container mr-10 ml-4 mt-3 mb-2" id="text-container">
+              <div className="blurred-container mr-2 mt-3 mb-2" id="text-container">
 
                 <ol className="list-outside list-decimal px-4"
                   style={{
@@ -407,7 +407,7 @@ function Add(props) {
                   <li>On clicking "Convert" you'll be proceeded to the next page.</li>
                 </ol>
               </div>
-              <div className="blurred-container mr-10 ml-4" id="upload-container"
+              <div className="blurred-container mr-2 " id="upload-container"
               >
                 <div
 
@@ -547,16 +547,16 @@ function Add(props) {
               </h1>
               <ReactPlayer
                 id="reactplayer"
-                config={{
-                  facebook: {
-                      attributes: {
-                        // add css to control video styling
-                        height: "300px",
-                        padding: "2rem",   
-                        backgroundColor: videoBackground, 
-                    }
-                  }
-                }}
+                // config={{
+                //   facebook: {
+                //       attributes: {
+                //         // add css to control video styling
+                //         height: "300px",
+                //         padding: "2rem",   
+                //         backgroundColor: videoBackground, 
+                //     }
+                //   }
+                // }}
                 style={{
                   marginTop: "1rem",
                   padding: "2rem",
