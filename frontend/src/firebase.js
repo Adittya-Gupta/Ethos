@@ -40,6 +40,12 @@ export const signInWithGoogle = () => {
   return signInWithPopup(auth, provider);
 };
 
+// sign in invalid
+
+
+
+
+
 // Function : sign-out
 export const signOut = () => {
   auth
@@ -120,7 +126,6 @@ export const signIn = async (email, password) => {
     });
   return err;
 };
-
 // Function : reset password
 export const resetPassword = (email) => {
   sendPasswordResetEmail(auth, email)
