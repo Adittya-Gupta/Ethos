@@ -4,10 +4,12 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
 import Lottie from "react-lottie";
-import lottiewave from "../lotties/audio-wave.json"
+import lottiewave from "../lotties/audio-wave.json";
 import { Link } from "react-router-dom";
 function WelcomeNavbar(props) {
-  const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
+  const [alignment, setAlignment] = React.useState(
+    props.theme === "light" ? "left" : "right"
+  );
 
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
@@ -21,13 +23,14 @@ function WelcomeNavbar(props) {
     autoplay: true,
     animationData: lottiewave,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
+      preserveAspectRatio: "xMidYMid slice",
+    },
   };
   return (
     <div
       style={{
         backgroundColor: props.theme === "light" ? "#96B5D3" : "#16131E",
+        zIndex: 1,
       }}
       className="relative"
     >
@@ -39,11 +42,7 @@ function WelcomeNavbar(props) {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="/">
               <span className="sr-only">Your Company</span>
-                <Lottie 
-                  options={logo_wave}
-                  height={50}
-                  width={50}
-                />
+              <Lottie options={logo_wave} height={50} width={50} />
             </a>
           </div>
           <ToggleButtonGroup
@@ -88,7 +87,7 @@ function WelcomeNavbar(props) {
               }}
               to="/login"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
-              state={{"theme":props.theme}}
+              state={{ theme: props.theme }}
             >
               Log in
             </Link>
@@ -99,7 +98,7 @@ function WelcomeNavbar(props) {
               }}
               to="/signup"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
-              state={{"theme":props.theme}}
+              state={{ theme: props.theme }}
             >
               Sign Up
             </Link>
@@ -107,7 +106,7 @@ function WelcomeNavbar(props) {
         </div>
       </div>
       {/* Mobile design starts from here */}
-      <div
+      {/* <div
         style={{
           backgroundColor: props.theme === "light" ? "#96B5D3" : "#16131E",
         }}
@@ -147,7 +146,7 @@ function WelcomeNavbar(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

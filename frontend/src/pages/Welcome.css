@@ -18,7 +18,7 @@
 .subheadings-light {
   font-style: normal;
   font-weight: 600;
-  font-size: 60px;
+
   line-height: 53px;
   color: #bcd5eb;
   font-family: "Playfair Display", serif;
@@ -26,7 +26,7 @@
 .subheadings-dark {
   font-style: normal;
   font-weight: 600;
-  font-size: 60px;
+
   line-height: 53px;
   color: #f2d1db;
   font-family: "Playfair Display", serif;
@@ -49,7 +49,7 @@
   color: #f2d1db;
 }
 
-.grid{
+.grid {
   transition-duration: 1s;
   transform: translate(0, -51px);
 }
@@ -86,36 +86,3 @@
   text-align: center;
   color: white;
 }
-
-/* .card:nth-child(1) {
-  opacity: 1;
-  animation: fade-in 2s;
-  animation-delay: 0.3s;
-}
-
-.card:nth-child(2) {
-  opacity: 1;
-  animation: fade-in 2s;
-  animation-delay: 0.7s;
-}
-
-.card:nth-child(3) {
-  opacity: 1;
-  animation: fade-in 2s;
-  animation-delay: 0.5s;
-}
-
-.card:nth-child(4) {
-  opacity: 1;
-  animation: fade-in 1.4s;
-  animation-delay: 0.8s;
-} */
-
-/* @keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-} */

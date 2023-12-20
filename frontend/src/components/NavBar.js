@@ -4,12 +4,14 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import React from "react";
 import Lottie from "react-lottie";
-import lottiewave from "../lotties/audio-wave.json"
+import lottiewave from "../lotties/audio-wave.json";
 import { useNavigate } from "react-router-dom";
-import {signOut} from "../firebase"
+import { signOut } from "../firebase";
 function Navbar(props) {
-  const storedAuth=JSON.parse(window.localStorage.getItem("token"));
-  const [alignment, setAlignment] = React.useState(props.theme==="light"?"left":"right");
+  const storedAuth = JSON.parse(window.localStorage.getItem("token"));
+  const [alignment, setAlignment] = React.useState(
+    props.theme === "light" ? "left" : "right"
+  );
   const navigate = useNavigate();
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
@@ -20,30 +22,36 @@ function Navbar(props) {
   const handleSignOut = () => {
     signOut();
     window.localStorage.clear();
-    navigate('/')
+    navigate("/");
   };
   const logo_wave = {
     loop: true,
     autoplay: true,
     animationData: lottiewave,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
+      preserveAspectRatio: "xMidYMid slice",
+    },
   };
   return (
     <div
       style={{
         backgroundColor: props.theme === "light" ? "#96B5D3" : "#16131E",
-        zIndex:1
+        zIndex: 1,
       }}
-      className="relative"
+      className="relative "
     >
       <div style={{ paddingBottom: "0px" }} className="mx-auto px-4 sm:px-6">
         <div
           style={{ margin: "0px" }}
           className="flex items-center justify-between py-2 md:justify-start md:space-x-10"
         >
-          <div style={{color : props.theme==="light" ? "#4D79B8" : "#C6778F", fontWeight:800}} className="flex justify-start lg:w-0 lg:flex-1">
+          <div
+            style={{
+              color: props.theme === "light" ? "#4D79B8" : "#C6778F",
+              fontWeight: 800,
+            }}
+            className="flex justify-start lg:w-0 lg:flex-1"
+          >
             {storedAuth.user ? storedAuth.user.displayName : "User"}
           </div>
           <ToggleButtonGroup
@@ -96,47 +104,45 @@ function Navbar(props) {
         </div>
       </div>
       {/* Mobile design starts from here */}
-      <div
-        style={{
-          backgroundColor: props.theme === "light" ? "#96B5D3" : "#16131E",
-        }}
-        className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
-      >
+      {!storedAuth.user && (
         <div
           style={{
             backgroundColor: props.theme === "light" ? "#96B5D3" : "#16131E",
           }}
-          className="divide-y-2 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+          className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
         >
-          <div className="px-5 pt-5 pb-6">
-            <div className="flex items-center justify-between">
+          <div
+            style={{
+              backgroundColor: props.theme === "light" ? "#96B5D3" : "#16131E",
+            }}
+            className="divide-y-2 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+          >
+            <div className="px-5 pt-5 pb-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Lottie options={logo_wave} height={50} width={50} />
+                </div>
+              </div>
+            </div>
+            <div className="space-y-6 py-6 px-5">
               <div>
-                <Lottie 
-                    options={logo_wave}
-                    height={50}
-                    width={50}
-                  />
+                <a
+                  href="/"
+                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                >
+                  Sign up
+                </a>
+                <p className="mt-6 text-center text-base font-medium text-gray-500">
+                  Existing User?&nbsp;
+                  <a href="/" className="text-indigo-600 hover:text-indigo-500">
+                    Sign in
+                  </a>
+                </p>
               </div>
             </div>
           </div>
-          <div className="space-y-6 py-6 px-5">
-            <div>
-              <a
-                href="/"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-              >
-                Sign up
-              </a>
-              <p className="mt-6 text-center text-base font-medium text-gray-500">
-                Existing User?&nbsp;
-                <a href="/" className="text-indigo-600 hover:text-indigo-500">
-                  Sign in
-                </a>
-              </p>
-            </div>
-          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
