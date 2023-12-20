@@ -19,7 +19,6 @@
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  min-width: 300px;
   /* Note: backdrop-filter has minimal browser support */
   
   border-radius: 35px;
@@ -46,7 +45,6 @@
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  min-width: 300px;
   /* Note: backdrop-filter has minimal browser support */
   
   border-radius: 35px;

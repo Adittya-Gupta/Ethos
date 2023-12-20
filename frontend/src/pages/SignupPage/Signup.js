@@ -19,7 +19,7 @@ function Signup(props) {
     console.log(email, passwd, username);
     const emailExists = await checkEmail(email);
     if (emailExists) {
-     toast.error("Email already exists");
+      toast.error("Email already exists");
       return;
     }
     const err = await signUp(email, passwd, username);
@@ -39,11 +39,11 @@ function Signup(props) {
         <AnimatedLight></AnimatedLight>
       )}
       <div
-        className={
+        className={`sm:w-[400px] w-[85%] ${
           theme === "dark"
             ? "blurred-div-dark-signup"
             : "blurred-div-light-signup"
-        }
+        }`}
       >
         <h1
           style={{
@@ -55,7 +55,7 @@ function Signup(props) {
         >
           Sign Up
         </h1>
-        <Form>
+        <Form className="w-full">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
               type="text"
