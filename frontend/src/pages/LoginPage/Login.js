@@ -36,15 +36,39 @@ function Login(props) {
   };
 
   // Function : sign-in with email and password
-  const handleLogin = async () => {
-    let err = await signIn(email, passwd);
-    console.log(err);
-    if (err) {
-      toast.error(err);
+  // const handleLogin = async () => {
+  //   let err = await signIn(email, passwd);
+  //   console.log(err);
+  //   if (err) {
+  //     toast.error(err);
+  //     return;
+  //   }
+  //   navigate("/emailverify");
+  // };
+
+  
+
+const handleLogin = async () => {
+  try {
+    const loginError = await signIn(email, passwd);
+
+    if (loginError) {
+      if (loginError.code === 'auth/invalid-email') {
+        toast.error("Invalid email format");
+      } else {
+        toast.error("Invalid credentials entered");
+      }
       return;
     }
+
     navigate("/emailverify");
-  };
+  } catch (error) {
+    console.error('An unexpected error occurred during login:', error);
+    toast.error("An unexpected error occurred");
+  }
+};
+
+
 
   // Function : for the case when user forgot their password
   const handleForgotPasswd = () => {
