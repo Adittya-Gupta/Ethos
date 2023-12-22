@@ -8,3 +8,25 @@ input[type="file"] {
   padding: 6px 12px;
   cursor: pointer;
 }
+.blurred-container{
+    /* position: relative; */
+   
+   padding-top: 10px;
+   padding-bottom: 40px;
+    border: 2px dotted #ccc;
+    border-radius: 10px;
+  
+}
+#upload-container{
+  width: 600px;
+  height: 200px;
+ 
+  margin-bottom: 1rem;
+}
+#text-container {
+  width: 600px;
+    height: 150px;
+    color:rgb(198,119,143);
+    padding:10px;
+    
+}

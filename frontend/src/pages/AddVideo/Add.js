@@ -21,7 +21,7 @@ function Add(props) {
   const [loading, setLoading] = useState(false);
   const [uploadMethod, setUploadMethod] = useState("");
   const navigate = useNavigate();
-  if(auth.currentUser===null){
+  if (auth.currentUser === null) {
     navigate("/login");
   }
 
@@ -238,10 +238,9 @@ function Add(props) {
     // create a storageref to upload to firebase storage
     const storageRef = ref(
       storage,
-      `${
-        (auth.currentUser ? auth.currentUser.uid : "user") +
-        ":" +
-        convertedAudioDataObj.name
+      `${(auth.currentUser ? auth.currentUser.uid : "user") +
+      ":" +
+      convertedAudioDataObj.name
       }.${convertedAudioDataObj.format}`
     );
 
@@ -254,12 +253,12 @@ function Add(props) {
         refdb( // data for the audio. it is stored in realtime database.
           db,
           "users/" +
-            (auth.currentUser ? auth.currentUser.uid : "user") +
-            "/" +
-            convertedAudioDataObj.name +
-            "/"
+          (auth.currentUser ? auth.currentUser.uid : "user") +
+          "/" +
+          convertedAudioDataObj.name +
+          "/"
         ),
-        { 
+        {
           name: convertedAudioDataObj.name,
           format: convertedAudioDataObj.format,
           dataURL: snapshot.ref._location.path,
@@ -275,23 +274,23 @@ function Add(props) {
   }
 
   // Function : to convert video from URL to audio
-  const Convertfromlink = async ()=>{
-    axios.get('http://127.0.0.1:5000/convert',{ // API call to back-end for conversion
-      params:{url:link,userid: auth.currentUser.uid!==null?auth.currentUser.uid:"guest"}
-    }).then((res)=>{
-      let name= new Date((new Date().toISOString())).toLocaleString()
-      name=name.replace("/","-")
-      name=name.replace("/","-")
+  const Convertfromlink = async () => {
+    axios.get('http://127.0.0.1:5000/convert', { // API call to back-end for conversion
+      params: { url: link, userid: auth.currentUser.uid !== null ? auth.currentUser.uid : "guest" }
+    }).then((res) => {
+      let name = new Date((new Date().toISOString())).toLocaleString()
+      name = name.replace("/", "-")
+      name = name.replace("/", "-")
       console.log(name)
       console.log(res.data);
       set(
         refdb(
           db,
-          "users/" + 
+          "users/" +
           (auth.currentUser ? auth.currentUser.uid : "user") +
           "/" +
           "createdOn" + name +
-            "/"
+          "/"
         ),
         { // data for the audio. it is stored in realtime database.
           name: "createdOn" + name,
@@ -303,7 +302,7 @@ function Add(props) {
           commentList: [],
         }
       ).then(() => { // after uploading, navigate to /editaudio page
-        navigate("/editaudio", { state: { name: "createdOn" + name, id: "createdOn" + name} });
+        navigate("/editaudio", { state: { name: "createdOn" + name, id: "createdOn" + name } });
       });
     })
   }
@@ -332,9 +331,9 @@ function Add(props) {
 
   const ConvertClick = (event) => {
     setLoading(true);
-    if(uploadMethod==='file-upload'){
+    if (uploadMethod === 'file-upload') {
       handleClick(event);
-    }else if(uploadMethod==='link'){
+    } else if (uploadMethod === 'link') {
       Convertfromlink();
     }
   }
@@ -358,26 +357,26 @@ function Add(props) {
             props.theme === "light" ? "blurred-div" : "blurred-div-dark"
           }
         >
-          {loading===false &&
-          <div
-            style={{
-              color: props.theme === "light" ? "#BCD5EB" : "#F2D1DB",
-              fontWeight: 600,
-              fontSize: "44px",
-            }}
-          >
-            Let's see the video first,
-          </div> }
-          {loading===true &&
-          <div
-            style={{
-              color: props.theme === "light" ? "#BCD5EB" : "#F2D1DB",
-              fontWeight: 600,
-              fontSize: "44px",
-            }}
-          >
-            Loading ...
-          </div> }
+          {loading === false &&
+            <div
+              style={{
+                color: props.theme === "light" ? "#BCD5EB" : "#F2D1DB",
+                fontWeight: 600,
+                fontSize: "44px",
+              }}
+            >
+              Let's see the video first,
+            </div>}
+          {loading === true &&
+            <div
+              style={{
+                color: props.theme === "light" ? "#BCD5EB" : "#F2D1DB",
+                fontWeight: 600,
+                fontSize: "44px",
+              }}
+            >
+              Loading ...
+            </div>}
           <hr
             style={{
               color: props.theme === "light" ? "#BCD5EB" : "#AC6086",
@@ -386,18 +385,43 @@ function Add(props) {
               width: "100%",
             }}
           />
-          {loading===false && <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
-            <div style={{ width: "40%", margin: "2rem" }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: "3rem",
-                }}
+
+          {loading === false && <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+
+            <div className="flex flex-col" style={{justifyContent: "space-between"}}>
+              <h1 className="ml-4" style={{
+                fontFamily: "Playfair Display",
+                fontWeight: "500",
+                fontSize: "32px",
+                color: props.theme === "light" ? "#BCD5EB" : "#AC6086",
+              }}>How to use?</h1>
+
+              <div className="blurred-container mr-2 mt-3 mb-2" id="text-container">
+
+                <ol className="list-outside list-decimal px-4"
+                  style={{
+                    color: props.theme === "light" ? "#BCD5EB" : "#AC6086",
+                  }}>
+                  <li>There are two ways in which you can upload the video, either by clicking on the "upload" button on the left or pasting the link in the space given.</li>
+                  <li>When you click "Ok" you can see your video in the video window given on the right.</li>
+                  <li>On clicking "Convert" you'll be proceeded to the next page.</li>
+                </ol>
+              </div>
+              <div className="blurred-container mr-2 " id="upload-container"
               >
-                {/* <Upload
+                <div
+
+                  style={{
+                    display: "flex",
+                    textAlign: "center",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "1rem",
+                    marginTop: "1.5rem",
+                  }}
+                >
+                  {/* <Upload
                   disabledsr={videoSRC !== null}
                   className="mt-3 mb-3"
                   accept=".mp4"
@@ -410,92 +434,106 @@ function Add(props) {
                     setVideoSRC(url);
                   }}
                 > */}
-                <label
-                  htmlFor="file-upload"
-                  className="custom-file-upload rounded-full h-16 w-20 text-center flex"
-                >
-                  <FileUploadIcon
-                    sx={{ color: iconColor, alignSelf: "center" }}
-                  ></FileUploadIcon>
-                </label>
-                <input
-                  type="file"
-                  onChange={handleChange}
-                  id="file-upload"
-                  // disabled={videoSRC !== ""}
-                  className="p-4"
-                  accept=".mp4"
-                  // showUploadList={false}
-                  style={{
-                    backgroundColor: uploadButtonColor,
-                  }}
-                />
-                {/* </Upload> */}
+                  <div className="flex flex-row items-baseline">
+                    <label
+                      htmlFor="file-upload"
+                      className="mr-2  items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
+                    >
+                      <FileUploadIcon
 
-                <InputGroup className="mb-3">
-                  <InputGroup.Text
-                    id="basic-addon3"
+                        sx={{ color: iconColor, alignSelf: "center", justifyContent: "center" }}
+                      ></FileUploadIcon>
+                    </label>
+                    <input
+                      type="file"
+
+                      onChange={handleChange}
+                      id="file-upload"
+                      // disabled={videoSRC !== ""}
+                      className="p-4"
+                      accept=".mp4"
+                      // showUploadList={false}
+                      style={{
+                        backgroundColor: uploadButtonColor,
+
+                      }}
+                    />
+                    {/* </Upload> */}
+
+                    <InputGroup className="mb-3">
+                      <InputGroup.Text
+                        className="inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-3 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
+                        id="basic-addon3"
+                        style={{
+                          backgroundColor: "transparent",
+                          color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
+                          borderColor:
+                            props.theme === "light" ? "#13458C" : "#F2D1DB",
+
+                        }}
+                      >
+                        https://
+                      </InputGroup.Text>
+                      <Form.Control
+                        // disabled={videoSRC !== ""}
+                        className="inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
+                        id="basic-url"
+                        aria-describedby="basic-addon3"
+                        onChange={(e) => {
+                          setLink(e.target.value);
+                          setVideoSource("link");
+                        }}
+                        style={{
+                          backgroundColor:
+                            props.theme === "light" ? "#8BB3DD" : "#F2D1DB",
+                          borderColor:
+                            props.theme === "light" ? "#13458C" : "#F2D1DB",
+
+                        }}
+                      />
+                      <BootstrapButton
+                        // disabled={videoSRC !== ""}
+                        className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-2 text-base font-medium shadow-md hover:bg-zinc-300"
+                        variant={props.theme === "light" ? "primary" : "dark"}
+                        style={{
+                          borderColor:
+                            props.theme === "light" ? "#13458C" : "#F2D1DB",
+                          color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
+                        }}
+                        id="button-addon2"
+                        onClick={() => {
+                          setUploadMethod("link");
+                          setLink(link);
+                          setVideoSRC(link);
+                        }}
+                      >
+                        Ok
+                      </BootstrapButton>
+                    </InputGroup>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "2rem",
+                  }}
+                >
+                  <Button
+                    className="ml-8 inline-flex items-center justify-center whitespace-nowrap border rounded-3xl px-4 py-4 text-base font-medium shadow-md hover:bg-zinc-300"
+                    disabled={videoSRC === null}
                     style={{
-                      backgroundColor: "transparent",
                       color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
-                      borderColor:
-                        props.theme === "light" ? "#13458C" : "#F2D1DB",
                     }}
+                    onClick={ConvertClick}
                   >
-                    https://
-                  </InputGroup.Text>
-                  <Form.Control
-                    // disabled={videoSRC !== ""}
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                    onChange={(e) => {
-                      setLink(e.target.value);
-                      setVideoSource("link");
-                    }}
-                    style={{
-                      backgroundColor:
-                        props.theme === "light" ? "#8BB3DD" : "#F2D1DB",
-                      borderColor:
-                        props.theme === "light" ? "#13458C" : "#F2D1DB",
-                    }}
-                  />
-                  <BootstrapButton
-                    // disabled={videoSRC !== ""}
-                    variant={props.theme === "light" ? "primary" : "dark"}
-                    style={{
-                      borderColor:
-                        props.theme === "light" ? "#13458C" : "#F2D1DB",
-                    }}
-                    id="button-addon2"
-                    onClick={() => {
-                      setUploadMethod("link");
-                      setLink(link);
-                      setVideoSRC(link);
-                    }}
-                  >
-                    Ok
-                  </BootstrapButton>
-                </InputGroup>
+                    Convert
+                  </Button>
+                </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "2rem",
-                }}
-              >
-                <Button
-                  disabled={videoSRC === null}
-                  style={{
-                    color: props.theme === "light" ? "#FFFFFF" : "#F2D1DB",
-                  }}
-                  onClick={ConvertClick}
-                >
-                  Convert
-                </Button>
-              </div>
-            </div>
 
+
+            </div>
             <div>
               <h1
                 style={{
@@ -509,6 +547,16 @@ function Add(props) {
               </h1>
               <ReactPlayer
                 id="reactplayer"
+                // config={{
+                //   facebook: {
+                //       attributes: {
+                //         // add css to control video styling
+                //         height: "300px",
+                //         padding: "2rem",   
+                //         backgroundColor: videoBackground, 
+                //     }
+                //   }
+                // }}
                 style={{
                   marginTop: "1rem",
                   padding: "2rem",
@@ -520,9 +568,9 @@ function Add(props) {
               />
             </div>
           </div>}
-          {loading===true && <div className="subheading" style={{color: props.theme==="light" ? "#BCD5EB":"#F2D1DB"}}>Extracting audio from your video:</div>}
-          {loading===true && <div style={{ display: "flex", flexDirection: "column", width: "100%",alignItems:"center" }}>
-                <div> <CircularProgress style={{color:headingColor}} size={100}/> </div> 
+          {loading === true && <div className="subheading" style={{ color: props.theme === "light" ? "#BCD5EB" : "#F2D1DB" }}>Extracting audio from your video:</div>}
+          {loading === true && <div style={{ display: "flex", flexDirection: "column", width: "100%", alignItems: "center" }}>
+            <div> <CircularProgress style={{ color: headingColor }} size={100} /> </div>
           </div>}
         </div>
       </div>
