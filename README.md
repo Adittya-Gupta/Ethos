@@ -31,3 +31,10 @@ One can easily find and edit their past audio clips as well as add new videos th
 #### The user can then add timestamps and comments on the audio and save it for later use.
 
 #### Implementation Video link :- https://drive.google.com/file/d/1vCl-s5ZOoCnSUEjqQn3IO5JNcCgZe0WD/view?usp=sharing
+
+## Contributors
+
+- Adittya Gupta
+- Sparsh Mittal
+- Achintya Gupta
+- Pranav Jain
