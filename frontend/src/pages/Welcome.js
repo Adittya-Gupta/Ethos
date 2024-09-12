@@ -2,6 +2,8 @@ import Anime from "react-anime";
 import WelcomeNavbar from "../components/WelcomeNavbar";
 
 import "./Welcome.css";
+// import { Footer } from "antd/es/layout/layout";
+
 function Welcome(props) {
   return (
     <>
@@ -33,7 +35,7 @@ function Welcome(props) {
           <div className="flip-container ">
             <div className="flipper">
               <div
-                className="front flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 front"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#66A2DA" : "#1E142F",
@@ -53,7 +55,7 @@ function Welcome(props) {
                 </h1>
               </div>
               <div
-                className="back flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 back"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#66A2DA" : "#1E142F",
@@ -78,7 +80,7 @@ function Welcome(props) {
           <div className="flip-container ">
             <div className="flipper">
               <div
-                className="front flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 front"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#3B84CB" : "#181025",
@@ -98,7 +100,7 @@ function Welcome(props) {
                 </h1>
               </div>
               <div
-                className="back flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 back"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#3B84CB" : "#181025",
@@ -123,7 +125,7 @@ function Welcome(props) {
           <div className="flip-container ">
             <div className="flipper">
               <div
-                className="front flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 front"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#66A2DA" : "#1E142F",
@@ -143,7 +145,7 @@ function Welcome(props) {
                 </h1>
               </div>
               <div
-                className="back flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 back"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#66A2DA" : "#1E142F",
@@ -168,7 +170,7 @@ function Welcome(props) {
           <div className="flip-container ">
             <div className="flipper">
               <div
-                className="front flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 front"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#3B84CB" : "#181025",
@@ -188,7 +190,7 @@ function Welcome(props) {
                 </h1>
               </div>
               <div
-                className="back flex items-center justify-center col-span-1 p-4"
+                className="flex items-center justify-center col-span-1 p-4 back"
                 style={{
                   backgroundColor:
                     props.theme === "light" ? "#3B84CB" : "#181025",
@@ -220,7 +222,7 @@ function Welcome(props) {
         direction="alternate"
         // loop={true}
       >
-        <div className="grid grid-cols-4 hidden" style={{ marginTop: "0px" }}>
+        <div className="grid hidden grid-cols-4" style={{ marginTop: "0px" }}>
           <div
             style={{
               backgroundColor: props.theme === "light" ? "#66A2DA" : "#1E142F",
@@ -321,6 +323,7 @@ function Welcome(props) {
           </div>
         </div>
       </Anime>
+    
     </>
   );
 }
