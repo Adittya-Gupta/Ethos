@@ -73,8 +73,8 @@ const handleLogin = async () => {
   // Function : for the case when user forgot their password
   const handleForgotPasswd = () => {
     if (email === "") {
-      toast("Please enter your email first",{
-        icon:"📧",
+      toast("Please enter your email first", {
+        icon: "📧",
       });
       return;
     }
@@ -88,7 +88,9 @@ const handleLogin = async () => {
         <AnimatedLight></AnimatedLight>
       )}
       <div
-        className={theme === "dark" ? "blurred-divdark" : "blurred-divlight"}
+        className={`sm:w-[400px] w-[85%] ${
+          theme === "dark" ? "blurred-divdark" : "blurred-divlight"
+        }`}
       >
         <h1
           style={{
@@ -100,7 +102,7 @@ const handleLogin = async () => {
         >
           Login
         </h1>
-        <Form>
+        <Form className=" w-full">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
               type="email"
